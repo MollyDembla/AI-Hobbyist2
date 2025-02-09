@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title> leather</title>
+    <style> 
+    .logo-section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 100%;
+            background-color: #d9d9d9;
+        }
+        .logoo{
+            background-image: url("Restyle_logo.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 220px;
+            width: 220px;
+            margin-left: -8%;
+        }
+        .doted-line{
+            margin-left: -0.5%;
+            font-size: 20px;
+            font-weight: 500;
+            color: #928787;
+        }
+        .headline_1{
+            margin-left: -21%;
+            margin-top: -5%;
+            font-size: 45px;
+            font-weight: 700;
+            color: #000000;
+            font-family:Georgia;
+        }
+        .slogan{
+            margin-left: -18.5%;
+            margin-top: 4%;
+            font-size: 20px;
+            font-weight: 0;
+            color: #544c4c;
+            font-family:'Courier New';
+        }
+        .nav-section{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 50px;
+            background: linear-gradient(to right, #000000, #000000);
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-section p {
+            color: #ffffff;
+            margin: 0 30px;
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        /* Underline effect */
+        .nav-section p::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #e91e63, #ff9a9e);
+            transition: width 0.3s ease;
+        }
+        /* Hover effects */
+        .nav-section p:hover {
+            color: #ff9a9e;
+            transform: translateY(-2px);
+        }
+        .nav-section p:hover::after {
+            width: 100%;
+        }
+        /* Active state */
+        .nav-section p.active {
+            color: #ff9a9e;
+        }
+        .nav-section p.active::after {
+            width: 100%;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-section {
+                padding: 0 20px;
+            }
+            
+            .nav-section p {
+                margin: 0 15px;
+                font-size: 14px;
+            }
+        }
+        .heading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #d9d9d9;
+        }
+        /* Add these new styles */
+    .ideas-section {
+        padding: 40px 20px;
+        background-color: #d9d9d9;
+    }
+
+    .ideas {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .idea-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+        padding: 30px;
+        transition: transform 0.3s ease;
+    }
+
+    .idea-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .idea-card h3 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .idea-card img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .materials-list {
+        background: #f8f8f8;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .instructions {
+        margin: 20px 0;
+    }
+
+    .instructions li {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+
+    .video-container {
+        position: relative;
+        padding-bottom: 40.25%;
+        height: 0;
+        overflow: hidden;
+        margin: 30px 0;
+        justify-content: center;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 700px;
+        height: 400px;
+        border-radius: 8px;
+        justify-content: center;
+    }
+    /* Add these styles in the <style> section of both files */
+.footer {
+    background: linear-gradient(135deg, #1a1c20 0%, #24262b 100%);
+    padding: 80px 0 0 0;
+    margin-top: 50px;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+    padding: 0 40px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    font-weight: 600;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background: linear-gradient(to right, #e91e63, #ff9a9e);
+    height: 3px;
+    width: 60px;
+    border-radius: 3px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #bbbbbb;
+    text-decoration: none;
+    font-weight: 400;
+    display: block;
+    transition: all 0.4s ease;
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.footer-col ul li a:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 25px;
+}
+
+.footer-col ul li a:hover:before {
+    opacity: 1;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: inline-flex;
+    height: 45px;
+    width: 45px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    font-size: 18px;
+    border: 2px solid transparent;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+    background: #ffffff;
+    color: #24262b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.social-links a:nth-child(1):hover { color: #3b5998; } /* Facebook */
+.social-links a:nth-child(2):hover { color: #1DA1F2; } /* Twitter */
+.social-links a:nth-child(3):hover { color: #E1306C; } /* Instagram */
+.social-links a:nth-child(4):hover { color: #0077b5; } /* LinkedIn */
+
+.foot-panel3 {
+    background-color: rgba(0,0,0,0.2);
+    padding: 20px 0;
+    margin-top: 50px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.foot-panel3 .logo p {
+    color: #ffffff;
+    font-size: 28px;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #ffffff, #bbbbbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 767px) {
+    .footer-col {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .container {
+        padding: 0 20px;
+    }
+    .social-links {
+        justify-content: center;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="logo-section">
+        <!-- logo -->
+        <div class="logoo"></div>
+        <div class="doted-line">------------------------------------------------------</div>
+        <div class="headline_1">
+            <h2>ReStyle</h2>
+        </div> 
+        <div class="slogan">
+            <p>GIVE YOUR OLD A NEW STORY</p>
+        </div>
+    </div>
+    <div class="nav-section">
+        <!-- nav -->
+            <p>Use That</p>
+            <p>About</p>
+            <p>Help</p>
+            <p>Review</p>
+    
+    </div>
+    <div class="heading">
+        <h1>leather</h1>
+    </div>
+    <div class="ideas-section">
+       <div class="ideas">
+        <div class="idea-card">
+            <h3 class="h3">Leather Wallet</h3> 
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Old leather jacket </li>
+                <li class="li">Scissors</li>
+                <li class="li">Needle and thread or sewing machine</li>
+                <li class="li">Wallet pattern</li>
+                <li class="li">Ruler</li>
+                    <li class="li">Pen or chalk for making</li>
+                </ul>    
+            </div>
+            <img src="./wallet.jpg" alt="Idea 1">
+            <div class="instructions"> 
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1. Disassemble the Jacket:</p>
+                <ul>
+                <li>Carefully cut along the seams of the jacket to separate usable leather panels.
+                </li>
+                
+            </ul>
+            <p class="p">2.Prepare the Pattern:</p>
+            <ul>
+                <li>Print and cut out a wallet pattern of your choice.
+                </li>
+                
+            </ul>
+            <p class="p">3. Trace and Cut Leather: </p>
+            <ul>
+                <li> Place the pattern pieces on the leather, trace them using a pen or chalk, and cut them out.</li>
+            </ul>
+            <p class="p">4.Assemble the Wallet: </p>
+            <ul>
+                <li>Follow the pattern instructions to sew the pieces together, forming pockets and compartments as needed.</li>
+                
+            </ul>
+            <p class="p">5. Finish Edges: </p>
+            <ul>
+                <li>Trim any excess leather and finish the edges for a clean look.
+                </li>
+                
+            </ul>
+            
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/SBo_iTnvPk0?si=_rsh9wsC1TxF5kYt"  allowfullscreen></iframe>
+            </div>      
+            
+            <hr>
+
+        </div>
+        <div class="idea-card">
+            <h3 class="h3">Tote Bag</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Large pieces of leather (from an old couch or jacket)
+                    </li>
+                <li class="li">Fabric for lining </li>
+                <li class="li">Sewing machine suitable for leather or heavy-duty needle and thread</li>
+                    <li class="li">Bag pattern or measurements
+                    </li>
+                    <li class="li">Scissors
+                    </li>
+                    <li class="li">Ruler</li>
+                    <li class="li">pen or chalk for making</li>
+                </ul>
+            </div>
+            <img src="./tod-bag.jpg" alt="Idea 2">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1. Prepare Leather</p>
+                <ul>
+                <li>Clean the leather and cut out large, flat sections.</li>
+                
+            </ul>
+            <p class="p">2. Cut Pieces:</p>
+            <ul>
+                <li> Based on your bag pattern or desired dimensions, cut out the leather pieces for the front, back, sides, and straps.</li>
+                
+            </ul>
+            <p class="p">3. Optional Lining: </p>
+            <ul>
+                <li>Cut fabric pieces for the lining if desired.
+                </li>
+               
+            </ul>
+            <p class="p">4. Assemble Bag: </p>
+            <ul>
+                <li>Sew the leather pieces together, attaching the sides to the front and back panels</li>
+                
+            </ul>
+            <p class="p">5. Attach Straps: </p>
+            <ul>
+                <li>Sew the straps securely to the bag.
+                </li>
+            </ul>
+            <p class="p">6. Add Lining: </p>
+            <ul>
+                <li> If using a lining, sew it to the inside of the bag. </li>
+               
+            </ul>
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/gmwnKqES2w4?si=RO5fL2JNMqIZs973" allowfullscreen></iframe>
+            </div>
+            <hr>
+        </div>
+        <div class="idea-card">
+            <h3 class="h3">Leather Accessories from Scrap Leather</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Scrap leather pieces
+                    </li>
+                <li class="li">Scissors
+                </li>
+                <li class="li">Hole punch</li>
+                    <li class="li">Rivets or Snaps</li>
+                    <li class="li">Key rings or bracelet clasps</li>
+                    <li class="li">Needle and thread</li>
+                    </ul>
+            </div>
+            <img src="./leather-band.jpg" alt="Idea 3">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1. Select Projects:</p>
+                <ul>
+                <li>Decide on the accessories you want to create.
+                </li>
+                
+            </ul>
+            <p class="p">2. Cut Leather:</p>
+            <ul>
+                <li>Use templates or freehand cut the leather into desired shapes.</li>
+               
+            </ul>
+            <p class="p">3. Add Hardware: </p>
+            <ul>
+                <li>Punch holes where needed and attach rivets, snaps, key rings, or clasps.
+                </li>
+                  
+            <p class="p">4. Sew Details:</p>
+            <ul>
+                <li> Add any stitching details as desired.
+                </li>
+            </ul>   
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/pjLKfFLrJBo?si=oSC2hyNv8KNvog5X" allowfullscreen></iframe>
+            </div>
+            <hr>
+        </div>
+        <div class="idea-card">
+            <h3 class="h3"> Refurbishing Leather Items
+            </h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Old leather item (e.g., bag, wallet)
+                    </li>
+                <li class="li">Leather cleaner</li>
+                <li class="li">Leather dye
+                </li>
+                <li class="li">Soft cloths</li>
+                <li class="li">Leather conditioner
+                </li>
+            </ul>
+            </div>
+            <img src="home_p4.jpg" alt="Idea 4">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1.Clean Leather: </p>
+                <ul>
+                <li> Use a leather cleaner to remove dirt and oils from the item.
+                </li>
+               
+            </ul>
+            <p class="p">2.Apply Dye: </p>
+            <ul>
+                <li>Evenly apply leather dye using a soft cloth, following the product instructions.
+                </li>
+                
+            </ul>
+            <p class="p">3. Dry: </p>
+            <ul>
+                <li>Allow the item to dry completely.
+                </li>
+                
+            </ul>
+            <p class="p">3. Condition: </p>
+            <ul>
+                <li>Apply leather conditioner to keep the leather supple.
+
+                </li>
+                
+            </ul>
+            
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                
+            </div>
+            <hr>
+        </div>
+       
+          
+       </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+         <div class="row">
+           <div class="footer-col">
+             <h4>company</h4>
+             <ul>
+               <li><a href="#">Help</a></li>
+               <li><a href="reviews.html">Reviews</a></li>
+             </ul>
+           </div>
+           <div class="social">
+           <div class="footer-col">
+             <h4>follow us</h4>
+             <div class="social-links">
+               <a href="#"><i class="fab fa-facebook-f"></i></a>
+               <a href="#"><i class="fab fa-twitter"></i></a>
+               <a href="#"><i class="fab fa-instagram"></i></a>
+               <a href="#"><i class="fab fa-linkedin-in"></i></a>
+             </div>
+           </div>
+           </div>
+         </div>
+        </div>
+        <div class="foot-panel3">
+           <div class="logo">
+               <p>ReStyle</p>
+            </div>
+       </div>
+     </footer>
+</body>
+</html>

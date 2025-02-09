@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Fabric | Use That</title>
+    <style>
+        .logo-section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 100%;
+            background-color: black;
+            background-image: url('restyle_img.jpg');
+            background-position: center;
+            background-size: cover;
+        }
+        .nav-section{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 50px;
+            background: linear-gradient(to right, #000000, #000000);
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-section p {
+            color: #ffffff;
+            margin: 0 30px;
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        /* Underline effect */
+        .nav-section p::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #e91e63, #ff9a9e);
+            transition: width 0.3s ease;
+        }
+        /* Hover effects */
+        .nav-section p:hover {
+            color: #ff9a9e;
+            transform: translateY(-2px);
+        }
+        .nav-section p:hover::after {
+            width: 100%;
+        }
+        /* Active state */
+        .nav-section p.active {
+            color: #ff9a9e;
+        }
+        .nav-section p.active::after {
+            width: 100%;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-section {
+                padding: 0 20px;
+            }
+            
+            .nav-section p {
+                margin: 0 15px;
+                font-size: 14px;
+            }
+        }
+                        .use-that-section {
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 30px;
+                            padding: 20px;
+                            max-width: 600px;
+                            margin: 0 auto;
+                        }
+                    
+                        .box {
+                            margin-bottom: 20px;
+                        }
+                    
+                        .box-content {
+                            position: relative;
+                            height: 300px;
+                            overflow: hidden;
+                            background-color: #d9d9d9;
+                        }
+                        .box-img {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-position: center;
+                            background-size: cover;
+                            background-repeat: no-repeat;
+                            transition: all 0.3s ease;
+                            filter: saturate(1.2);
+                        }
+                        /* Style for the title text */
+                        .box-content p:first-child {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            color: white;
+                            font-size: 24px;
+                            font-weight: bold;
+                            z-index: 2;
+                            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                            opacity: 0;
+                            transition: all 0.3s ease;
+                        }
+                        /* Style for the "View" link */
+                        .box-content p:last-child {
+                            position: absolute;
+                            bottom: 20px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            z-index: 2;
+                            opacity: 0;
+                            transition: all 0.3s ease;
+                        }
+                        .box-content p:last-child a {
+                            color: white;
+                            text-decoration: none;
+                            padding: 8px 20px;
+                            background: rgba(0, 0, 0, 0.5);
+                            border-radius: 20px;
+                            transition: all 0.3s ease;
+                        }
+                        /* Dark overlay on the image */
+                        .box-content::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0, 0, 0, 0.4);
+                            opacity: 0;
+                            transition: all 0.3s ease;
+                            z-index: 1;
+                        }
+                        /* Hover effects */
+                        .box-content:hover::before {
+                            opacity: 1;
+                        }
+                        .box-content:hover p:first-child,
+                        .box-content:hover p:last-child {
+                            opacity: 1;
+                        }
+                        .box-content:hover .box-img {
+                            transform: scale(1.1);
+                            filter: grayscale(100%);
+                        }
+                        .box-content p:last-child a:hover {
+                            background: rgba(255, 255, 255, 0.9);
+                            color: black;
+                        }
+        .her0_msg{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+            width: 100%;
+            background-color: rgb(159, 208, 12);
+        }
+        .path {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: ;
+        }
+
+        .path p {
+            display: flex;
+            align-items: center;
+            color: #6c757d;
+            font-size: 14px;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        /* Add arrow between items */
+        .path p:not(:last-child)::after {
+            content: '→';
+            margin: 0 10px;
+            color: #adb5bd;
+            font-size: 12px;
+        }
+
+        /* Style for the current page */
+        .path p:last-child {
+            color: #212529;
+            font-weight: 600;
+        }
+
+        /* Hover effects */
+        .path p:not(:last-child):hover {
+            color: #0056b3;
+            cursor: pointer;
+        }
+
+        /* Optional animation for arrow */
+        .path p:not(:last-child):hover::after {
+            animation: arrowBounce 1s infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(3px); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 576px) {
+            .path {
+                padding: 10px 15px;
+            }
+            
+            .path p {
+                font-size: 12px;
+            }
+        }
+
+        .category {
+            padding: 8px 20px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            font-size: 20px;
+        }
+
+        .category p {
+            margin: 0;
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            font-size: 25px;
+        }
+       
+        .footer {
+            background: linear-gradient(135deg, #1a1c20 0%, #24262b 100%);
+            padding: 80px 0 0 0;
+            margin-top: 50px;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1170px;
+            margin: auto;
+            padding: 0 40px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+            padding: 0 15px;
+        }
+
+        .footer-col h4 {
+            font-size: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+            font-weight: 600;
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        .footer-col h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            background: linear-gradient(to right, #e91e63, #ff9a9e);
+            height: 3px;
+            width: 60px;
+            border-radius: 3px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li a {
+            font-size: 16px;
+            text-transform: capitalize;
+            color: #bbbbbb;
+            text-decoration: none;
+            font-weight: 400;
+            display: block;
+            transition: all 0.4s ease;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-col ul li a:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ffffff;
+            padding-left: 25px;
+        }
+
+        .footer-col ul li a:hover:before {
+            opacity: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            height: 45px;
+            width: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #ffffff;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-size: 18px;
+            border: 2px solid transparent;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            background: #ffffff;
+            color: #24262b;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .social-links a:nth-child(1):hover { color: #3b5998; } /* Facebook */
+        .social-links a:nth-child(2):hover { color: #1DA1F2; } /* Twitter */
+        .social-links a:nth-child(3):hover { color: #E1306C; } /* Instagram */
+        .social-links a:nth-child(4):hover { color: #0077b5; } /* LinkedIn */
+
+        .foot-panel3 {
+            background-color: rgba(0,0,0,0.2);
+            padding: 20px 0;
+            margin-top: 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .foot-panel3 .logo p {
+            color: #ffffff;
+            font-size: 28px;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ffffff, #bbbbbb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 767px) {
+            .footer-col {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Responsive adjustment */
+        @media (max-width: 768px) {
+            .use-that-section {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-section"></div>
+        <!-- logo -->
+    </div>
+    <div class="nav-section">
+        <!-- nav -->
+            <p>Use That</p>
+            <p>About</p>
+            <p>Help</p>
+            <p>Review</p>
+    
+    </div>
+    <div class="navigation-container">
+        <div class="path">
+            <p>Home / </p>
+            <p>Use That / </p>    
+            <p>Fabric</p>
+        </div>
+        <div class="category">
+            <p>Category: Fabric</p>
+        </div>
+    </div>
+    <div class="use-that-section">
+        <!-- use that -->
+        <div class="box1 box">
+            <div class="box-content">
+                <p>Home Decor</p>
+                 <div class="box-img" style="background-image: url('Home.jpg');"></div>
+                 <p><a href="home_decor.html">View</a></p>
+            </div>
+         </div>
+         <div class="box2 box"> 
+                <div class="box-content">
+                 <p>Charity</p>
+                 <div class="box-img" style="background-image: url('carity\ .jpg');"></div>
+                 <p><a href="charity.html">View</a></p>
+             </div>
+         </div>
+         <div class="box3 box">
+             <div class="box-content">
+                 <p>Organization</p>
+                 <div class="box-img" style="background-image: url('organization.jpg');"></div>
+                 <p><a href="organization.html">View</a></p>
+            </div>
+         </div>
+         <div class="box4 box">
+             <div class="box-content">
+                 <p>Clothing</p>
+                 <div class="box-img" style="background-image: url('personal_use.jpg');"></div>
+                 <p><a href="./clothing.htm">View</a></p>
+            </div>
+         </div>
+         
+          
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+         <div class="row">
+           <div class="footer-col">
+             <h4>company</h4>
+             <ul>
+               <li><a href="#">Help</a></li>
+               <li><a href="reviews.html">Reviews</a></li>
+             </ul>
+           </div>
+           <div class="social">
+           <div class="footer-col">
+             <h4>follow us</h4>
+             <div class="social-links">
+               <a href="#"><i class="fab fa-facebook-f"></i></a>
+               <a href="#"><i class="fab fa-twitter"></i></a>
+               <a href="#"><i class="fab fa-instagram"></i></a>
+               <a href="#"><i class="fab fa-linkedin-in"></i></a>
+             </div>
+           </div>
+           </div>
+         </div>
+        </div>
+        <div class="foot-panel3">
+           <div class="logo">
+               <p>ReStyle</p>
+            </div>
+       </div>
+     </footer>
+</body>
+</html>

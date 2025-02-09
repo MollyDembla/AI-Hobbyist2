@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Metal</title>
+    <style> 
+    .logo-section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 100%;
+            background-color: #d9d9d9;
+        }
+        .logoo{
+            background-image: url("Restyle_logo.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 220px;
+            width: 220px;
+            margin-left: -8%;
+        }
+        .doted-line{
+            margin-left: -0.5%;
+            font-size: 20px;
+            font-weight: 500;
+            color: #928787;
+        }
+        .headline_1{
+            margin-left: -21%;
+            margin-top: -5%;
+            font-size: 45px;
+            font-weight: 700;
+            color: #000000;
+            font-family:Georgia;
+        }
+        .slogan{
+            margin-left: -18.5%;
+            margin-top: 4%;
+            font-size: 20px;
+            font-weight: 0;
+            color: #544c4c;
+            font-family:'Courier New';
+        }
+        .nav-section{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 50px;
+            background: linear-gradient(to right, #000000, #000000);
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-section p {
+            color: #ffffff;
+            margin: 0 30px;
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        /* Underline effect */
+        .nav-section p::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #e91e63, #ff9a9e);
+            transition: width 0.3s ease;
+        }
+        /* Hover effects */
+        .nav-section p:hover {
+            color: #ff9a9e;
+            transform: translateY(-2px);
+        }
+        .nav-section p:hover::after {
+            width: 100%;
+        }
+        /* Active state */
+        .nav-section p.active {
+            color: #ff9a9e;
+        }
+        .nav-section p.active::after {
+            width: 100%;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-section {
+                padding: 0 20px;
+            }
+            
+            .nav-section p {
+                margin: 0 15px;
+                font-size: 14px;
+            }
+        }
+        .heading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #d9d9d9;
+        }
+        /* Add these new styles */
+    .ideas-section {
+        padding: 40px 20px;
+        background-color: #d9d9d9;
+    }
+
+    .ideas {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .idea-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+        padding: 30px;
+        transition: transform 0.3s ease;
+    }
+
+    .idea-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .idea-card h3 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .idea-card img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .materials-list {
+        background: #f8f8f8;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .instructions {
+        margin: 20px 0;
+    }
+
+    .instructions li {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+
+    .video-container {
+        position: relative;
+        padding-bottom: 40.25%;
+        height: 0;
+        overflow: hidden;
+        margin: 30px 0;
+        justify-content: center;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 700px;
+        height: 400px;
+        border-radius: 8px;
+        justify-content: center;
+    }
+    /* Add these styles in the <style> section of both files */
+.footer {
+    background: linear-gradient(135deg, #1a1c20 0%, #24262b 100%);
+    padding: 80px 0 0 0;
+    margin-top: 50px;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+    padding: 0 40px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    font-weight: 600;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background: linear-gradient(to right, #e91e63, #ff9a9e);
+    height: 3px;
+    width: 60px;
+    border-radius: 3px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #bbbbbb;
+    text-decoration: none;
+    font-weight: 400;
+    display: block;
+    transition: all 0.4s ease;
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.footer-col ul li a:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 25px;
+}
+
+.footer-col ul li a:hover:before {
+    opacity: 1;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: inline-flex;
+    height: 45px;
+    width: 45px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    font-size: 18px;
+    border: 2px solid transparent;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+    background: #ffffff;
+    color: #24262b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.social-links a:nth-child(1):hover { color: #3b5998; } /* Facebook */
+.social-links a:nth-child(2):hover { color: #1DA1F2; } /* Twitter */
+.social-links a:nth-child(3):hover { color: #E1306C; } /* Instagram */
+.social-links a:nth-child(4):hover { color: #0077b5; } /* LinkedIn */
+
+.foot-panel3 {
+    background-color: rgba(0,0,0,0.2);
+    padding: 20px 0;
+    margin-top: 50px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.foot-panel3 .logo p {
+    color: #ffffff;
+    font-size: 28px;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #ffffff, #bbbbbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 767px) {
+    .footer-col {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .container {
+        padding: 0 20px;
+    }
+    .social-links {
+        justify-content: center;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="logo-section">
+        <!-- logo -->
+        <div class="logoo"></div>
+        <div class="doted-line">------------------------------------------------------</div>
+        <div class="headline_1">
+            <h2>ReStyle</h2>
+        </div> 
+        <div class="slogan">
+            <p>GIVE YOUR OLD A NEW STORY</p>
+        </div>
+    </div>
+    <div class="nav-section">
+        <!-- nav -->
+            <p>Use That</p>
+            <p>About</p>
+            <p>Help</p>
+            <p>Review</p>
+    
+    </div>
+    <div class="heading">
+        <h1>Metal</h1>
+    </div>
+    <div class="ideas-section">
+       <div class="ideas">
+        <div class="idea-card">
+            <h3 class="h3">Metal Wall Art</h3> 
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Scrap metal pieces (e.g., old tools, metal sheets) </li>
+                <li class="li">Sandpaper or wire brush</li>
+                <li class="li">Metal primer</li>
+                <li class="li">Paint (optional)</li>
+                <li class="li">Welding equipment or strong adhesive</li>
+                    <li class="li">Hanging hardware </li>
+                </ul>    
+            </div>
+            <img src="./metal-art.jpg" alt="Idea 1">
+            <div class="instructions"> 
+                <h4 class="h4">Instructions:</h4>
+                <ul>
+                <li> Prepare the Metal: Clean the metal pieces thoroughly using sandpaper or a wire brush to remove rust and dirt.</li>
+                 </ul>
+            <ul>
+                <li> Design Your Art: Arrange the metal pieces into your desired pattern or shape.
+                </li>
+            </ul>
+            <ul>
+                <li>Assemble: Weld the pieces together or use a strong adhesive suitable for metal.</li>
+            </ul>
+            <ul>
+                <li> Finish: Apply a metal primer to prevent rust, then paint if desired. </li>
+            </ul>
+            <ul>
+                <li> Hang: Attach appropriate hardware to display your art.</li>
+            </ul>
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/etg6tf-R008?si=gaIsMP8cC0K9HInS" allowfullscreen></iframe>
+            </div>      
+            
+            <hr>
+        </div>
+
+        <div class="idea-card">
+            <h3 class="h3"> Metal Food Tin Storage Containers</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Empty metal food tins</li>
+                <li class="li">Soap and water</li>
+                <li class="li">Paint (base and top coats) </li>
+                    <li class="li">Painter's tape</li>
+                    <li class="li">Paintbrushes</li>
+                    <li class="li">Clear sealant (optional) </li>
+                </ul>
+            </div>
+            <img src="./metal-food.jpg" alt="Idea 2">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <ul>
+                <li> Clean the Tins: Wash the tins with soap and water; let them dry completely.</li>
+            </ul>
+            <ul>
+                <li>Apply Base Coat: Paint the entire exterior with a base coat; allow it to dry.</li>
+            </ul>
+            <ul>
+                <li>Masking: Use painter's tape to create patterns or designs</li>
+            </ul>
+            <ul>
+                <li>Apply Top Coat: Paint over the entire tin with your chosen top coat color.</li>
+            </ul>
+            <ul>
+                <li> Reveal Design: Once dry, carefully remove the tape to reveal the pattern.</li>
+            </ul>
+            <ul>
+                <li> Seal (Optional): Apply a clear sealant for durability.</li>
+            </ul>
+            </div>
+            <hr>
+        </div>
+
+        <div class="idea-card">
+            <h3 class="h3">Metal Beads from Aluminum Cans</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Empty aluminum cans</li>
+                <li class="li">Scissors</li>
+                <li class="li">Metal file </li>
+                    <li class="li">Doming block and punch</li>
+                    <li class="li">Hole punch</li>
+                    <li class="li">Sandpaper </li>
+                    <li class="li">Paint or nail polish (optional)</li>
+                    </ul>
+            </div>
+            <img src="./metal-beads.jpg" alt="Idea 3">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <ul>
+                <li> Prepare the Can: Cut the top and bottom off the can; flatten the remaining piece.</li>
+            </ul>
+           
+            <ul>
+                <li>Cut Shapes: Cut out circles or desired shapes.</li>
+            </ul>
+           
+            <ul>
+                <li>Smooth Edges: Use a metal file to smooth edges.
+                </li>
+            </ul>
+           
+            <ul>
+                <li> Form Beads: Place the cut shapes into the doming block; use the punch to create a dome.</li>
+            </ul>   
+            <ul>
+                <li>Create Holes: Punch holes for threading.
+                </li>
+            </ul> 
+            <ul>
+                <li>Decorate: Paint or decorate as desired.</li>
+            </ul>  
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/hlaYqvoPSeo?si=M0C_J8xXtD_oX8_B" allowfullscreen></iframe>
+            </div>
+            <hr>
+        </div>
+
+        <div class="idea-card">
+            <h3 class="h3">Metal Rolling Cart</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Metal rolling cart</li>
+                <li class="li">Steel wool</li>
+                <li class="li">Sandpaper</li>
+                <li class="li">Paint</li>
+                <li class="li">Painter's tape</li>
+                <li class="li">Brushes</li>
+            </ul>
+            </div>
+            <img src="./metal-cart.jpg" alt="Idea 4">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                
+                <ul>
+                <li>Remove Rust: Use steel wool to scrub away rust spots.
+                </li>
+            </ul>
+           
+            <ul>
+                <li>Sand: Sand the entire cart to create a smooth surface.
+                </li>
+            </ul>
+            <ul>
+                <li> Clean: Wipe down to remove dust.
+                </li>
+            </ul>
+            <ul>
+                <li>Tape: Use painter's tape to protect areas not being painted.
+                </li>
+            </ul>
+            <ul>
+                <li> Paint: Apply paint evenly; let dry.
+                </li>
+            </ul>
+            <ul>
+                <li> Finish: Remove tape and reassemble if necessary.
+                </li>
+            </ul>
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/etOxIWJar9w?si=GiR75w6oL8Fh_KhW"  allowfullscreen></iframe>
+            </div>
+            <hr>
+        </div>
+       
+    <footer class="footer">
+        <div class="container">
+         <div class="row">
+           <div class="footer-col">
+             <h4>company</h4>
+             <ul>
+               <li><a href="#">Help</a></li>
+               <li><a href="reviews.html">Reviews</a></li>
+             </ul>
+           </div>
+           <div class="social">
+           <div class="footer-col">
+             <h4>follow us</h4>
+             <div class="social-links">
+               <a href="#"><i class="fab fa-facebook-f"></i></a>
+               <a href="#"><i class="fab fa-twitter"></i></a>
+               <a href="#"><i class="fab fa-instagram"></i></a>
+               <a href="#"><i class="fab fa-linkedin-in"></i></a>
+             </div>
+           </div>
+           </div>
+         </div>
+        </div>
+        <div class="foot-panel3">
+           <div class="logo">
+               <p>ReStyle</p>
+            </div>
+       </div>
+     </footer>
+</body>
+</html>

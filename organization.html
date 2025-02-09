@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Organization</title>
+    <style> 
+    .logo-section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 100%;
+            background-color: #d9d9d9;
+        }
+        .logoo{
+            background-image: url("Restyle_logo.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 220px;
+            width: 220px;
+            margin-left: -8%;
+        }
+        .doted-line{
+            margin-left: -0.5%;
+            font-size: 20px;
+            font-weight: 500;
+            color: #928787;
+        }
+        .headline_1{
+            margin-left: -21%;
+            margin-top: -5%;
+            font-size: 45px;
+            font-weight: 700;
+            color: #000000;
+            font-family:Georgia;
+        }
+        .slogan{
+            margin-left: -18.5%;
+            margin-top: 4%;
+            font-size: 20px;
+            font-weight: 0;
+            color: #544c4c;
+            font-family:'Courier New';
+        }
+        .nav-section{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 50px;
+            background: linear-gradient(to right, #000000, #000000);
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-section p {
+            color: #ffffff;
+            margin: 0 30px;
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+        /* Underline effect */
+        .nav-section p::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #e91e63, #ff9a9e);
+            transition: width 0.3s ease;
+        }
+        /* Hover effects */
+        .nav-section p:hover {
+            color: #ff9a9e;
+            transform: translateY(-2px);
+        }
+        .nav-section p:hover::after {
+            width: 100%;
+        }
+        /* Active state */
+        .nav-section p.active {
+            color: #ff9a9e;
+        }
+        .nav-section p.active::after {
+            width: 100%;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-section {
+                padding: 0 20px;
+            }
+            
+            .nav-section p {
+                margin: 0 15px;
+                font-size: 14px;
+            }
+        }
+        .heading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #d9d9d9;
+        }
+        /* Add these new styles */
+    .ideas-section {
+        padding: 40px 20px;
+        background-color: #d9d9d9;
+    }
+
+    .ideas {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .idea-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+        padding: 30px;
+        transition: transform 0.3s ease;
+    }
+
+    .idea-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .idea-card h3 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .idea-card img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .materials-list {
+        background: #f8f8f8;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .instructions {
+        margin: 20px 0;
+    }
+
+    .instructions li {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+
+    .video-container {
+        position: relative;
+        padding-bottom: 40.25%;
+        height: 0;
+        overflow: hidden;
+        margin: 30px 0;
+        justify-content: center;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 700px;
+        height: 400px;
+        border-radius: 8px;
+        justify-content: center;
+    }
+    /* Add these styles in the <style> section of both files */
+.footer {
+    background: linear-gradient(135deg, #1a1c20 0%, #24262b 100%);
+    padding: 80px 0 0 0;
+    margin-top: 50px;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+    padding: 0 40px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    font-weight: 600;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background: linear-gradient(to right, #e91e63, #ff9a9e);
+    height: 3px;
+    width: 60px;
+    border-radius: 3px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #bbbbbb;
+    text-decoration: none;
+    font-weight: 400;
+    display: block;
+    transition: all 0.4s ease;
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.footer-col ul li a:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 25px;
+}
+
+.footer-col ul li a:hover:before {
+    opacity: 1;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    display: inline-flex;
+    height: 45px;
+    width: 45px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    font-size: 18px;
+    border: 2px solid transparent;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+    background: #ffffff;
+    color: #24262b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.social-links a:nth-child(1):hover { color: #3b5998; } /* Facebook */
+.social-links a:nth-child(2):hover { color: #1DA1F2; } /* Twitter */
+.social-links a:nth-child(3):hover { color: #E1306C; } /* Instagram */
+.social-links a:nth-child(4):hover { color: #0077b5; } /* LinkedIn */
+
+.foot-panel3 {
+    background-color: rgba(0,0,0,0.2);
+    padding: 20px 0;
+    margin-top: 50px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.foot-panel3 .logo p {
+    color: #ffffff;
+    font-size: 28px;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #ffffff, #bbbbbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 767px) {
+    .footer-col {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .container {
+        padding: 0 20px;
+    }
+    .social-links {
+        justify-content: center;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="logo-section">
+        <!-- logo -->
+        <div class="logoo"></div>
+        <div class="doted-line">------------------------------------------------------</div>
+        <div class="headline_1">
+            <h2>ReStyle</h2>
+        </div> 
+        <div class="slogan">
+            <p>GIVE YOUR OLD A NEW STORY</p>
+        </div>
+    </div>
+    <div class="nav-section">
+        <!-- nav -->
+            <p>Use That</p>
+            <p>About</p>
+            <p>Help</p>
+            <p>Review</p>
+    
+    </div>
+    <div class="heading">
+        <h1>Organization</h1>
+    </div>
+    <div class="ideas-section">
+       <div class="ideas">
+        <div class="idea-card">
+            <h3 class="h3">Fabric Baskets</h3> 
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Sturdy fabric (old jeans, canvas, etc.)</li>
+                <li class="li">Thread</li>
+                <li class="li">Scissors</li>
+                <li class="li">Sewing machine or hand-sewing kit</li>
+                <li class="li">Interfacing (optional for added structure)</li>
+                </ul>    
+            </div>
+            <img src="basket.jpg" alt="Idea 1">
+            <div class="instructions"> 
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1. Cut the Fabric:</p>
+                <ul>
+                <li>Measure and cut two pieces of fabric for the basket’s sides (e.g., 10" x 10" for square baskets or a longer strip for a round one).</li>
+            </ul>
+            <p class="p">2. Cut Bottom Piece:</p>
+            <ul>
+                <li>Cut a matching piece for the bottom of your basket.</li>
+            </ul>
+            <p class="p">3. Sew the Sides: </p>
+            <ul>
+                <li>With the right sides of the fabric facing each other, sew the sides together to form a tube.</li>
+            </ul>
+            <p class="p">4. Attach the Bottom:</p>
+            <ul>
+                <li>Pin the bottom piece to the tube, making sure to align the edges, and sew it into place.</li>
+            </ul>
+            <p class="p">5. Reinforce the Sides:</p>
+            <ul>
+                <li>If you want more stability, add interfacing between the fabric layers.</li>
+            </ul>
+            <p class="p">6. Finish the Edges:</p>
+            <ul>
+                <li>Fold over the top edge and sew it down for a clean finish.</li>
+            </ul>
+            <p class="p">7. Add Handles (Optional):</p>
+            <ul>
+                <li>Cut strips of fabric for handles, fold, sew them into loops, and attach to the basket.</li>
+            </ul>
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/Ab4tLwM9KEw?si=4TdePW9OFiu4-0M7"  allowfullscreen></iframe>
+            </div>      
+            
+            <hr>
+
+        </div>
+        <div class="idea-card">
+            <h3 class="h3">Hanging Organizers</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Fabric (old shirts, denim, or scraps)</li>
+                <li class="li">Scissors</li>
+                <li class="li">Sewing machine or hand-sewing kit</li>
+                    <li class="li">Measuring tape</li>
+                    <li class="li">Ribbon or dowel for hanging</li>
+                </ul>
+            </div>
+            <img src="hanging.jpg" alt="Idea 2">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1. Cut the Fabric:</p>
+                <ul>
+                <li>Decide on the size of your organizer and cut one large piece for the backing (e.g., 12" x 24").</li>
+            </ul>
+            <p class="p">2. Make Pockets:</p>
+            <ul>
+                <li>Cut smaller pieces for the pockets. Sew the edges of each pocket piece to prevent fraying, then attach them to the backing piece in a row.</li>
+            </ul>
+            <p class="p">3. Sew the Sides: </p>
+            <ul>
+                <li>Fold the top edge of the backing fabric down and sew it to create a pocket for the dowel or ribbon.</li>
+            </ul>
+            <p class="p">4. Attach the Hanging Method: </p>
+            <ul>
+                <li>Thread a dowel or sew on a ribbon to the top of the organizer for easy hanging.</li>
+            </ul>
+            <p class="p">5. Add Decorative Details:</p>
+            <ul>
+                <li>Optionally, you can add buttons, ribbons, or other embellishments to make it more personal. </li>
+            </ul>
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/t_7Q02IFmVU?si=IxXVZFyG1cLpeFR-" allowfullscreen></iframe>
+            </div>
+            <hr>
+        </div>
+        <div class="idea-card">
+            <h3 class="h3">Drawer Dividers</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Fabric scraps or old clothes</li>
+                <li class="li">Scissors</li>
+                <li class="li">Cardboard or foam board</li>
+                    <li class="li">Glue or fabric tape</li>
+                    <li>Ruler</li>
+                    </ul>
+            </div>
+            <img src="drawer.jpg" alt="Idea 3">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1. Measure the Drawer:</p>
+                <ul>
+                <li>Measure the dimensions of your drawer to determine the size of the dividers.</li>
+            </ul>
+            <p class="p">2. Cut the Fabric:</p>
+            <ul>
+                <li>Cut your fabric into strips that are wide enough to cover the cardboard or foam board pieces.</li>
+            </ul>
+            <p class="p">3. Prepare the Dividers: </p>
+            <ul>
+                <li>Cut the cardboard or foam board to the size of your drawer compartments.</li>
+            </ul>
+            <p class="p">4. Cover with Fabric: </p>
+            <ul>
+                <li>Glue or tape the fabric onto the cardboard or foam board. Ensure the fabric covers all edges.</li>
+            </ul>   
+            <p class="p">5. Assemble the Dividers: </p>
+            <ul>
+                <li>Arrange the fabric-covered dividers inside the drawer to create compartments. Use glue or fabric tape to secure them.</li>
+            </ul>
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/L2yyIc2iWuI?si=vlNyBQe1goHa5o8U" allowfullscreen></iframe>
+            </div>
+            <hr>
+        </div>
+        <div class="idea-card">
+            <h3 class="h3">Fabric-Covered Storage Boxes</h3>
+            <div class="materials-list">
+                <h4 class="h4">Material Needed:</h4>
+                <ul class="ul">
+                    <li class="li">Cardboard boxes</li>
+                <li class="li">Fabric (old t-shirts, curtains, etc.)</li>
+                <li class="li">Scissors</li>
+                <li class="li">Hot glue gun or fabric glue</li>
+                <li>Ribbon, buttons, or embellishments (optional)</li>
+            </ul>
+            </div>
+            <img src="storage.jpg" alt="Idea 4">
+            <div class="instructions">
+                <h4 class="h4">Instructions:</h4>
+                <p class="p">1. Prepare the Box:</p>
+                <ul>
+                <li>Take an old cardboard box and ensure it’s clean and in good shape.</li>
+            </ul>
+            <p class="p">2. Cut the Fabric:</p>
+            <ul>
+                <li>Cut fabric to fit the sides and bottom of the box, leaving an extra inch for folding over the edges.</li>
+            </ul>
+            <p class="p">3. Apply the Fabric:</p>
+            <ul>
+                <li>Use fabric glue or a hot glue gun to attach the fabric to the cardboard, smoothing out wrinkles as you go.</li>
+            </ul>
+            <p class="p">4. Finish the Edges: </p>
+            <ul>
+                <li>Fold over the fabric edges and glue them down to create a clean finish.</li>
+            </ul>
+            <p class="p">5. Add Decorative Details: </p>
+            <ul>
+                <li>Optionally, add ribbon, buttons, or other embellishments to personalize the box.</li>
+            </ul>
+            </div>
+            <h3>Recommended Tutorial:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/kMKgF3nZ6Rw?si=8gN_PeinL_4hBRxC" allowfullscreen></iframe>
+            </div>
+            <hr>
+        </div>
+       </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+         <div class="row">
+           <div class="footer-col">
+             <h4>company</h4>
+             <ul>
+               <li><a href="#">Help</a></li>
+               <li><a href="reviews.html">Reviews</a></li>
+             </ul>
+           </div>
+           <div class="social">
+           <div class="footer-col">
+             <h4>follow us</h4>
+             <div class="social-links">
+               <a href="#"><i class="fab fa-facebook-f"></i></a>
+               <a href="#"><i class="fab fa-twitter"></i></a>
+               <a href="#"><i class="fab fa-instagram"></i></a>
+               <a href="#"><i class="fab fa-linkedin-in"></i></a>
+             </div>
+           </div>
+           </div>
+         </div>
+        </div>
+        <div class="foot-panel3">
+           <div class="logo">
+               <p>ReStyle</p>
+            </div>
+       </div>
+     </footer>
+</body>
+</html>

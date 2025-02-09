@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clothing</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .section{
+            position: relative;
+            width: 80%;
+            height: 50vh;
+            margin: 0 auto;
+        }
+
+        .pattern-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            mix-blend-mode: multiply;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            mix-blend-mode: multiply;
+            filter: invert(1);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(to bottom, #202123, #34424c);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            overflow-y: auto;
+        }
+
+        .sidebar img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            transition: transform 0.2s, background 0.2s;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .sidebar img:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            margin-left: 200px;
+        }
+
+        /* Common styles for both clothing and fabric images */
+        .fabric-swatch {
+            object-fit: cover !important; /* Override contain for fabric patterns */
+        }
+
+        .upload-container {
+            margin-top: 20px;
+        }
+
+        .upload-button {
+            width: 100%;
+            padding: 12px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .upload-button:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .upload-button:active {
+            transform: translateY(0);
+        }
+
+        /* Section title */
+        .sidebar-title {
+            color: white;
+            font-size: 1.2em;
+            margin: 15px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        /* Scrollbar styling */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        #fileInput {
+            display: none;
+        }
+        /* logo section */
+        .logo-section{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            width: 100%;
+            background-color: #d9d9d9;
+            margin-bottom: 50px;
+        }
+        .logoo{
+            background-image: url("Restyle_logo.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 220px;
+            width: 220px;
+            margin-left: -8%;
+        }
+
+        .sdg-logo{
+            background-image: url("sdg_logo.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 170px;
+            width: 170px;
+            margin-left: 6%;
+            border-radius: 10px;
+        }
+        .doted-line{
+            margin-left: -0.5%;
+            font-size: 20px;
+            font-weight: 500;
+            color: #928787;
+        }
+        .headline_1{
+            margin-left: -24%;
+            margin-top: -5%;
+            font-size: 45px;
+            font-weight: 700;
+            color: #000000;
+            font-family:Georgia;
+        }
+        .slogan{
+            margin-left: -19.5%;
+            margin-top: 3.5%;
+            font-size: 25px;
+            font-weight: 0;
+            color: #544c4c;
+            font-family:'Courier New';
+        }
+        /* Replace switch styles with button styles */
+        .gender-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .gender-button {
+            flex: 1;
+            padding: 12px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .gender-button:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .gender-button:active {
+            transform: translateY(0);
+        }
+
+        .note {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #2ecc71;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .note:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .note h3 {
+            color: #2ecc71;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note h3::before {
+            content: "ℹ️";
+            font-size: 1.2em;
+        }
+
+        .note p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* *{
+  box-sizing:border-box;
+}
+html, body{
+  height:100%;
+}
+body{
+  display:grid;
+  
+  place-content: center;
+  align-items:center;
+  
+  font-family:"nunito", sans-serif;
+  background-color:#0099ff;
+} */
+.card {
+    position: relative;
+    padding: 42px 32px;
+    clip-path: circle(5% at 95% 11%);
+    transition: all ease-in-out .3s;
+    background-color: #ffffff;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    float: right; /* Float to right */
+    margin-right: 50px;
+    margin-top: 20px; /* Space after logo section */
+}
+
+.card:hover,
+.card:focus {
+    clip-path: circle(75%);
+    background-color: #ffffff;
+}
+
+/* Clear the float and maintain layout */
+.content-container {
+    width: 100%;
+    overflow: hidden; /* Clear the float */
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Ensure sidebar and card don't overlap */
+.sidebar {
+    float: left;
+}
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Replace switch with buttons -->
+        <div class="gender-buttons">
+            <a href="clothing.htm" class="gender-button">MEN</a>
+            <a href="clotttthing.html" class="gender-button">WOMEN</a>
+        </div>
+
+        <h3 class="sidebar-title">Men's Clothing</h3>
+        
+        <div class="men active" id="men">  <!-- Men's section -->
+            <img src="./pants-r.png" alt="Men's Pants">
+            <img src="./men_1.jpg" alt="Men's Dress">
+            <img src="./men_6.jpg" alt="Men's Jacket">
+            <img src="./socks-r.png" alt="Men's Socks">
+            <img src="./t_shirt-r.png" alt="Men's T-Shirt">
+        </div>
+
+        <!-- <div class="women" id="women">  <!-- Women's section --
+            <img src="./women_1.jpg" alt="Women's Dress">
+            <img src="./women_2.jpg" alt="Women's Skirt">
+            <img src="./women_3.jpg" alt="Women's Top">
+            <img src="./women_4.jpg" alt="Women's Blouse">
+            <img src="./women_5.jpg" alt="Women's Pants">
+        </div>  -->
+
+        <h3 class="sidebar-title">Patterns</h3>
+        <!-- Fabric swatches -->
+        <img src="./fabric_1.png" class="fabric-swatch" alt="Fabric 1">
+        <img src="./fabric_2.png" class="fabric-swatch" alt="Fabric 2">
+        <img src="./fabric_3.png.jpg" class="fabric-swatch" alt="Fabric 3">
+        <img src="./fabric_4.jpg" class="fabric-swatch" alt="Fabric 4">
+        <img src="./fabric_5.jpg" class="fabric-swatch" alt="Fabric 5">
+        <img src="./fabric_6.png" class="fabric-swatch" alt="Fabric 5">
+
+        <!-- Upload section -->
+        <div class="upload-container">
+            <input type="file" id="fileInput" accept="image/*">
+            <button class="upload-button" onclick="document.getElementById('fileInput').click()">
+                + Add Pattern
+            </button>
+        </div>
+
+        <div class="note">
+            <h3>Note</h3>
+            <p>Please upload the pattern in the correct format. The pattern should be in the same size as the clothing item.</p>
+        </div>
+    
+    </div>
+
+    <div class="logo-section">
+        <!-- logo -->
+        <div class="logoo"></div>
+        <div class="doted-line">------------------------------------------------------</div>
+        <div class="headline_1">
+            <h2>ReStyle</h2>
+        </div> 
+        <div class="slogan">
+            <h6>GIVE YOUR OLD A NEW STORY</h6>     
+        </div>
+
+        <div class="sdg-logo"></div>
+    </div>
+    <div class="section">
+        <div class="pattern-container"></div>
+    </div>
+
+    <div class="card" tabindex="0">
+        <span class="card__infoicon">
+          <i class="fa fa-info"></i>
+        </span>
+        <h1 class="card__title">This is a title</h1>
+        <p class="card__description">Lorem ipsum dolor sit amet and this is all the lorem ipsum text I remember</p>
+        
+        <p class="card_credits">Thanks <a class="card_reference" href="https://www.youtube.com/channel/UCVyRiMvfUNMA1UPlDPzG5Ow">Gary Simon</a> for the inspiration</p>
+    </div>
+
+    <script>
+        const clothingImages = document.querySelectorAll('.sidebar img:not(.fabric-swatch)');
+        const fabricSwatches = document.querySelectorAll('.fabric-swatch');
+        const patternContainer = document.querySelector('.pattern-container');
+        const section = document.querySelector('.section');
+        
+        let currentClothingImage = null;
+
+        // Handle clothing image clicks
+        clothingImages.forEach(img => {
+            img.addEventListener('click', () => {
+                const imgUrl = img.getAttribute('src');
+                currentClothingImage = imgUrl;
+
+                // Set the clothing as mask
+                document.styleSheets[0].insertRule(
+                    `.section::before { 
+                        background-image: url('${imgUrl}') !important;
+                        mix-blend-mode: multiply !important;
+                        background-size: contain !important;
+                        background-position: center !important;
+                        background-repeat: no-repeat !important;
+                        opacity: 1 !important;
+                        filter: invert(1) !important;
+                    }`,
+                    document.styleSheets[0].cssRules.length
+                );
+
+                // Apply mask to pattern container
+                patternContainer.style.webkitMaskImage = `url('${imgUrl}')`;
+                patternContainer.style.maskImage = `url('${imgUrl}')`;
+                patternContainer.style.webkitMaskSize = 'contain';
+                patternContainer.style.maskSize = 'contain';
+                patternContainer.style.webkitMaskRepeat = 'no-repeat';
+                patternContainer.style.maskRepeat = 'no-repeat';
+                patternContainer.style.webkitMaskPosition = 'center';
+                patternContainer.style.maskPosition = 'center';
+            });
+        });
+
+        // Handle fabric swatch clicks
+        fabricSwatches.forEach(swatch => {
+            swatch.addEventListener('click', () => {
+                if (!currentClothingImage) return; // Ensure clothing is selected first
+                
+                const imgUrl = swatch.getAttribute('src');
+                patternContainer.style.backgroundImage = `url('${imgUrl}')`;
+                patternContainer.style.backgroundSize = 'cover';
+                patternContainer.style.mixBlendMode = 'multiply';
+            });
+        });
+
+        // File upload handling
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newSwatch = document.createElement('img');
+                    newSwatch.className = 'fabric-swatch';
+                    newSwatch.src = e.target.result;
+                    
+                    newSwatch.addEventListener('click', () => {
+                        if (currentClothingImage) {
+                            patternContainer.style.backgroundImage = `url('${e.target.result}')`;
+                            patternContainer.style.backgroundSize = 'cover';
+                            patternContainer.style.mixBlendMode = 'multiply';
+                        }
+                    });
+                    
+                    document.querySelector('.upload-container').insertAdjacentElement('beforebegin', newSwatch);
+                    
+                    if (currentClothingImage) {
+                        patternContainer.style.backgroundImage = `url('${e.target.result}')`;
+                        patternContainer.style.backgroundSize = 'cover';
+                        patternContainer.style.mixBlendMode = 'multiply';
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Add this to your existing JavaScript
+        const genderToggle = document.getElementById('genderToggle');
+        const menSection = document.querySelector('.men');
+        const womenSection = document.querySelector('.women');
+
+        // Initialize with men's section visible
+        menSection.classList.add('active');
+        womenSection.classList.remove('active');
+
+        // Toggle between sections
+        genderToggle.addEventListener('change', function() {
+            clearDisplay(); // Clear current display
+            
+            if (this.checked) {
+                // Switch to women's section
+                menSection.classList.remove('active');
+                womenSection.classList.add('active');
+            } else {
+                // Switch to men's section
+                womenSection.classList.remove('active');
+                menSection.classList.add('active');
+            }
+        });
+
+       
+    </script>
+</body>
+</html>      
