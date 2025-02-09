@@ -1,56 +1,2295 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - www.codingnepalweb.com -->
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drag-and-Drop</title>
-  <!-- Linking Google Font Link For Icons -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="drag.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invicta | Logo Generate</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("./faltu-bg8.jpg");
+            background-position: center;
+            background-size: cover;
+            color: black;
+            margin-left: 0;
+            transition: margin-left 0.3s ease-in-out;
+        }
+        body.sidebar-visible {
+            margin-left: 250px;
+        }
+        body h1{
+            color: #ffffff;
+            font-size: 3.5em;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            margin: 30px 0;
+            font-weight: 900;
+            padding: 25px 70px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+        }
+
+        /* Simple metallic text effect */
+        body h1::before {
+            content: 'INVICTA';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                #ffffff 0%,
+                #c0c0c0 25%,
+                #ffffff 50%,
+                #c0c0c0 75%,
+                #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Subtle side lighting */
+        body h1::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            right: -20px;
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 100%);
+            transform: translateY(-50%);
+        }
+
+        /* Simple hover effect */
+        body h1:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .dropbox {
+            width: 500px;
+            height: 400px;
+            padding: 20px;
+            border: 3px dashed #4CAF50;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+
+        .dropbox:hover {
+            border-color: #45a049;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .dropbox::before {
+            content: "Drag here";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            font-size: 1.5em;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .dropbox:not(:empty)::before {
+            display: none;
+        }
+
+        .selection-area {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .draggable {
+            position: absolute;
+            margin: 10px;
+            padding: 10px;
+            font-size: 18px;
+            cursor: grab;
+            background-color: transparent;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            text-align: center;
+            color: black;
+            z-index: 1000;
+        }
+
+        .image-box {
+            width: 200px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: grab;
+            border: 1px solid transparent;
+        }
+
+        .download-button {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .download-button:hover {
+            background-color: #45a049;
+        }
+
+        .upload-button {
+            padding: 10px 20px;
+            background-color: #0071FF;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            top: 10px;
+            margin-top: 10px;
+        }
+
+        .upload-button:hover {
+            background-color: #005DD1;
+        }
+
+        .upload-container {
+            margin-top: 10px;
+        }
+
+        .boxs {
+            margin-top: 25px;
+            width: fit-content;
+            height: 250px;
+            border: 2px solid black;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .boxs h3{
+            margin-top: -30px;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .image-box {
+            flex-shrink: 0;
+        }
+
+
+        .custom-added {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .custom-added .image-box,
+        .custom-added .draggable {
+            position: relative;
+        }
+
+        /* Add sidebar styles */
+        .sidebar {
+            position: fixed;
+            left: -250px; /* Start hidden */
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background: linear-gradient(145deg, #f5f5f5 0%, #e0e0e0 100%); /* Lighter gradient */
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .sidebar.visible {
+            left: 0;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .sidebar-content {
+            margin-top: 20px;
+            color: black; /* Darker text for contrast */
+            padding-bottom: 20px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+       
+        .sidebar-menu a{
+            color: black;
+            text-decoration: none;
+        }
+        .sidebar-menu li {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu li:not(.slogan-section):hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .slogan-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .slogan-section p {
+            color: black; /* Dark text for better readability */
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        #sloganInput {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            color: black;
+            font-size: 14px;
+        }
+
+        #sloganInput::placeholder {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .add-slogan-btn {
+            width: 100%;
+            padding: 8px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: black;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-slogan-btn:hover {
+            background: #45a049;
+        }
+
+        .shape-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .shapes-section select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            color:black;
+            font-size: 14px;
+        }
+
+        .shapes-section select option {
+            background: #f5f5f5;
+            color: black;
+            padding: 8px;
+        }
+
+        .shapes-section select:focus {
+            outline: none;
+            border-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .upload-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-section p {
+            color: black;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .upload-button {
+            width: 100%;
+            padding: 8px;
+            background: #0071FF;
+            border: none;
+            border-radius: 4px;
+            color: black;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background: #005DD1;
+        }
+
+        /* Remove the old upload container styles */
+        .upload-container {
+            display: none;
+        }
+
+        .options-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .options-section p {
+            color: black;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .options-container .image-box {
+            width: 100px;
+            height: 100px;
+            margin: 5px auto;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+            cursor: grab;
+            transition: transform 0.3s ease;
+        }
+
+        .options-container .image-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Update existing image box styles */
+        #box1 {
+            background-image: url('./faltu.png');
+        }
+
+        #box2 {
+            background-image: url('./blood-bag_10415642.png');
+        }
+
+        #box3 {
+            background-image: url("fruit_9862033.png");
+        }
+
+        #box4 {
+            background-image: url('./nurses-day_10341806.png');
+        }
+
+        #box5 {
+            background-image: url('./planet-earth_1598196.png');
+        }
+        #box6 {
+            background-image: url('./recycle_8652995.png');
+        }
+
+        #box7 {
+            background-image: url('./recycle_10281265.png');
+        }
+
+        #box8 {
+            background-image: url('./education.png');
+        }
+
+        #box9 {
+            background-image: url('./regenerative_6018291.png');
+        }
+
+        #box10 {
+            background-image: url('./renewable-energy_11999577.png');
+        }
+        #box11 {
+            background-image: url('./water.png');
+        }
+
+        #box12 {
+            background-image: url('./team-spirit_11621985.png');
+        }
+
+        #box13 {
+            background-image: url('./temperature_11191748.png');
+        }
+
+        #box14 {
+            background-image: url('./vegetarian_1586098.png');
+        }
+
+        #box15 {
+            background-image: url('./band-aid.png');
+        }
+        #box16 {
+            background-image: url('./pollution.png');
+        }
+
+        #box17 {
+            background-image: url('./Gender_equality.png');
+        }
+
+        #box18 {
+            background-image: url("paise.png");
+        }
+
+        #box19 {
+            background-image: url('./transport.png');
+        }
+
+        #box20 {
+            background-image: url("coin.png");
+        }
+
+        /* Style the scrollbar for the options container */
+        .options-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .options-container::-webkit-scrollbar-track {
+            background: rgba(64, 63, 63, 0.3);
+            border-radius: 3px;
+        }
+
+        .options-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+        }
+
+        .options-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Style the sidebar scrollbar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background:rgba(64, 63, 63, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Ensure all sections are visible */
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Adjust options container max height */
+        .options-container {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        /* Ensure consistent spacing */
+        .slogan-section,
+        .shapes-section,
+        .options-section,
+        .upload-section {
+            padding: 15px !important;
+        }
+
+        .fonts-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .fonts-section p {
+            color: black;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .fonts-section select {
+            width: 100%;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .fonts-section select option {
+            background: #f5f5f5;
+            color: black;
+            padding: 8px;
+        }
+
+        .fonts-section select:focus {
+            outline: none;
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Style for colored elements */
+        .draggable.selected, .image-box.selected {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        .colors-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .colors-section p {
+            color: black;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .color-picker {
+            margin-bottom: 15px;
+        }
+
+        .color-label {
+            color: black;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .color-picker input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        .color-picker input[type="color"]::-webkit-color-swatch {
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .shapes-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .shapes-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .shape-item {
+            width: 50px;
+            height: 50px;
+            background: rgba(51, 50, 50, 0.5);
+            cursor: grab;
+            transition: transform 0.2s;
+        }
+
+        .shape-item:hover {
+            transform: scale(1.1);
+            background: rgba(51, 50, 50, 1);
+        }
+
+        /* Shape definitions */
+        .shape-item[data-shape="square"] {
+            border-radius: 0;
+        }
+
+        .shape-item[data-shape="circle"] {
+            border-radius: 50%;
+        }
+
+        .shape-item[data-shape="triangle"] {
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .shape-item[data-shape="rectangle"] {
+            width: 70px;
+            height: 40px;
+        }
+
+        .shape-item[data-shape="pentagon"] {
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+
+        .shape-item[data-shape="hexagon"] {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        .shape-item[data-shape="star"] {
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .shape-item[data-shape="dodecagon"] {
+            clip-path: polygon(
+        50% 0%, 81% 6.7%, 93.3% 25%, 93.3% 75%,
+        81% 93.3%, 50% 100%, 19% 93.3%, 6.7% 75%,
+        6.7% 25%, 19% 6.7%
+      );
+        }
+
+        .shape-controls {
+            margin-top: 10px;
+        }
+
+        .control-label {
+            color: black;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        #shapeSize {
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        /* Add these styles for the sidebar toggle button and sidebar visibility */
+        .sidebar-toggle {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 1001;
+            background: #1a1a1a;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; /* Smoother transition */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-toggle:hover {
+            background: #333;
+            transform: scale(1.05); /* Slight scale effect on hover */
+        }
+
+        .toggle-icon {
+            font-size: 20px;
+        }
+
+        /* Move toggle button with sidebar */
+        .sidebar-visible .sidebar-toggle {
+            left: 270px; /* 250px (sidebar width) + 20px */
+        }
+
+        /* Add these styles for the size controls */
+        .size-controls-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .size-controls-section p {
+            color: black;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .size-control {
+            margin-bottom: 15px;
+        }
+
+        .control-label {
+            color:black;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .size-value {
+            color: black;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #45a049;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            background: #45a049;
+        }
+
+        /* Add these CSS styles for smooth dragging */
+        .dragging {
+            opacity: 0.9;
+            transform-origin: center center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .shape-item, .draggable, .image-box {
+            transition: all 0.3s ease;
+            cursor: grab;
+        }
+
+        .shape-item:active, .draggable:active, .image-box:active {
+            cursor: grabbing;
+        }
+
+        .dropbox {
+            transition: background-color 0.3s ease;
+        }
+
+        .dropbox.drag-over {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Add styles for delete button */
+        .delete-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            line-height: 1;
+            z-index: 1002;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .delete-btn:hover {
+            background-color: #ff0000;
+            transform: scale(1.1);
+        }
+
+        /* Show delete button when element is selected */
+        .draggable.selected .delete-btn,
+        .image-box.selected .delete-btn,
+        .shape-item.selected .delete-btn {
+            display: flex;
+        }
+        /* graphics images */
+        #boxx1 {
+            background-image: url('./danger_11826915.png');
+        }
+
+        #boxx2 {
+            background-image: url('./ecology_17188564.png');
+        }
+
+        #boxx3 {
+            background-image: url('./electric_8541984.png');
+        }
+
+        #boxx4 {
+            background-image: url('./meditation_5266950.png');
+        }
+
+        #boxx5 {
+            background-image: url('./nature_14153180.png');
+        }
+        #boxx6 {
+            background-image: url('./palm_3086410.png');
+        }
+
+        #boxx7 {
+            background-image: url('./plant-recycling_18500403.png');
+        }
+
+        #boxx8 {
+            background-image: url('./plug_17471280.png');
+        }
+
+        #boxx9 {
+            background-image: url('./sustainable_12413494.png');
+        }
+
+        #boxx10 {
+            background-image: url('./sustainable-energy_4435657.png');
+        }
+
+        /* Add styles for rotation control in sidebar */
+        .rotation-section {
+            padding: 15px !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .rotation-section p {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .rotation-control {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rotation-slider {
+            width: 100%;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .rotation-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .rotation-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .rotation-value {
+            color: #333;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .rotation-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .rotation-button {
+            flex: 1;
+            padding: 5px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .rotation-button:hover {
+            background: #45a049;
+        }
+
+        /* Add these styles to your CSS */
+        .draggable-text {
+            position: absolute;
+            padding: 10px;
+            font-size: 16px;
+            cursor: move;
+            z-index: 100;
+        }
+
+        .text-controls {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            display: none;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 5px;
+            z-index: 1000;
+        }
+
+        .draggable-text:hover .text-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .text-handle {
+            cursor: move;
+            padding: 0 5px;
+            color: #666;
+        }
+
+        .text-options {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .text-options button {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .text-options button:hover {
+            background: #45a049;
+        }
+
+        .text-options input[type="color"] {
+            width: 25px;
+            height: 25px;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        .text-options select {
+            padding: 2px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .draggable-text:focus {
+            outline: 2px solid #4CAF50;
+            border-radius: 2px;
+        }
+
+        .active {
+            outline: 2px solid #0071FF !important;
+            outline-offset: 2px;
+        }
+
+        .delete-canvas {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropbox:hover .delete-canvas {
+            opacity: 1;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropbox.new {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Add CSS styles for draggable text */
+        .draggable {
+            user-select: none;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .draggable:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .draggable.dragging {
+            opacity: 0.9;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
+
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <img src="" alt="logo" />
-      <h2>Invicta</h2>
+    <button id="sidebarToggle" class="sidebar-toggle">
+        <span class="toggle-icon">☰</span>
+    </button>
+
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <ul class="sidebar-menu">
+                <li><a href="logoindex.html">Home</a></li>
+                <li class="options-section">
+                    <p>Graphics</p>
+                    <div class="options-container">
+                        <div id="boxx1" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx2" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx3" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx4" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx5" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx6" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx7" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx8" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx9" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="boxx10" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                    </div>
+                </li>
+                <li class="slogan-section">
+                    <p>Write Your Slogan</p>
+                    <input type="text" id="sloganInput" placeholder="Enter text here...">
+                    <button class="add-slogan-btn">Add Text</button>
+                </li>
+                <li class="options-section">
+                    <p>Photos</p>
+                    <div class="options-container">
+                        <div id="box1" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box2" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box3" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box4" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box5" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box6" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box7" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box8" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box9" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box10" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box11" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box12" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box13" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box14" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box15" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box16" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box17" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box18" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box19" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                        <div id="box20" class="image-box" draggable="true" ondragstart="dragStart(event)"></div>
+                    </div>
+                </li>
+                <li class="upload-section">
+                    <p>Upload Image</p>
+                    <input type="file" id="fileUpload" accept="image/*" style="display: none;">
+                    <button class="upload-button" onclick="document.getElementById('fileUpload').click()">
+                        Choose File
+                    </button>
+                </li>
+                <li class="fonts-section">
+                    <p>Select Font</p>
+                    <select id="fontSelect" onchange="changeSloganFont(this.value)">
+                        <option value="Arial" style="font-family: Arial">Arial</option>
+                        <option value="Times New Roman" style="font-family: 'Times New Roman'">Times New Roman</option>
+                        <option value="Helvetica" style="font-family: Helvetica">Helvetica</option>
+                        <option value="Georgia" style="font-family: Georgia">Georgia</option>
+                        <option value="Verdana" style="font-family: Verdana">Verdana</option>
+                        <option value="Impact" style="font-family: Impact">Impact</option>
+                        <option value="Courier New" style="font-family: 'Courier New'">Courier New</option>
+                        <option value="Trebuchet MS" style="font-family: 'Trebuchet MS'">Trebuchet MS</option>
+                        <option value="Comic Sans MS" style="font-family: 'Comic Sans MS'">Comic Sans MS</option>
+                        <option value="Droid Serif" style="font-family: 'Droid Serif'">Droid Serif</option>
+                    </select>
+                </li>
+                <li class="shapes-section">
+                    <p>Shapes</p>
+                    <div class="shapes-container">
+                        <div class="shape-item" data-shape="square" draggable="true"></div>
+                        <div class="shape-item" data-shape="circle" draggable="true"></div>
+                        <div class="shape-item" data-shape="triangle" draggable="true"></div>
+                        <div class="shape-item" data-shape="rectangle" draggable="true"></div>
+                        <div class="shape-item" data-shape="pentagon" draggable="true"></div>
+                        <div class="shape-item" data-shape="hexagon" draggable="true"></div>
+                        <div class="shape-item" data-shape="star" draggable="true"></div>
+                        <div class="shape-item" data-shape="dodecagon" draggable="true"></div>
+                    </div>
+                    <div class="shape-controls">
+                        <div class="size-control">
+                            <p class="control-label">Size</p>
+                            <input type="range" id="shapeSize" min="20" max="200" value="100">
+                        </div>
+                    </div>
+                </li>
+                <li class="colors-section">
+                    <p>Colors</p>
+                    <div class="color-picker">
+                        <p class="color-label">Text Color</p>
+                        <input type="color" id="textColorPicker" value="#000000">
+                    </div>
+                    <div class="color-picker">
+                        <p class="color-label">Shape Color</p>
+                        <input type="color" id="shapeColorPicker" value="#ffffff">
+                    </div>
+                </li>
+                <li class="size-controls-section">
+                    <p>Size Controls</p>
+                    <div class="size-control">
+                        <p class="control-label">Text Size</p>
+                        <input type="range" id="textSize" min="12" max="72" value="18">
+                        <span class="size-value" id="textSizeValue">18px</span>
+                    </div>
+                    <div class="size-control">
+                        <p class="control-label">Image Size</p>
+                        <input type="range" id="imageSize" min="50" max="400" value="200">
+                        <span class="size-value" id="imageSizeValue">200px</span>
+                    </div>
+                </li>
+                <li class="rotation-section">
+                    <p>Rotation</p>
+                    <div class="rotation-control">
+                        <input type="range" class="rotation-slider" id="rotationSlider"
+                               min="0" max="360" value="0" step="1">
+                        <div class="rotation-value" id="rotationValue">0°</div>
+                        <div class="rotation-buttons">
+                            <button class="rotation-button" id="rotateLeft">-90°</button>
+                            <button class="rotation-button" id="rotateRight">+90°</button>
+                            <button class="rotation-button" id="resetRotation">Reset</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul class="sidebar-links">
-      <h4>
-        <span>Main Menu</span>
-        <div class="menu-separator"></div>
-      </h4>
-     
-        <select>
-          <option>Shape</option>
-          <option>circle</option>
-          <option>square</option>
-          <option>rectangle</option>
-      </select>
-      <select>
-        <option>Colour</option>
-        <option>circle</option>
-        <option>square</option>
-        <option>rectangle</option>
-    </select>
-    <select>
-        <option>Images</option>
-        <option></option>
-        <option>square</option>
-        <option>rectangle</option>
-    </select>
-    <select>
-        <option>Slogan</option>
-        <option>Every bite Counts</option>
-        <option>Plant Today, Breathe Tomorrow</option>
-        <option>Respect Their Lives, Protect Their Homes</option>
-        <option>Save Energy, Live Greener</option>
-    </select>
-     
-    </ul>
-      
-    
-  </aside>
+
+    <h1>Invicta</h1>
+
+    <!-- Drop Zone -->
+    <div class="dropbox" id="dropZone" ondrop="handleDrop(event)" ondragover="allowDrop(event)"></div>
+
+    <div class="custom-added" id="customAddedSection"></div>
+
+    <!-- Upload Section -->
+    <div class="upload-container">
+        <label class="upload-button" for="fileUpload">Upload Image</label>
+        <input type="file" id="fileUpload" accept="image/*">
+    </div>
+
+    <!-- Download Button -->
+    <button class="download-button" onclick="downloadOutput()">Download Output</button>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const data = event.dataTransfer.getData("text/plain");
+            const shapeType = event.dataTransfer.getData("shape-type");
+            const draggedElement = document.getElementById(data);
+           
+            const dropZone = document.getElementById('dropZone');
+            const rect = dropZone.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            if (shapeType) {
+                const newShape = createShape(shapeType, x, y);
+                newShape.style.transition = 'all 0.3s ease';
+                newShape.style.opacity = '0';
+                newShape.style.transform = 'scale(0.8)';
+                // Set lowest z-index for shapes
+                newShape.style.zIndex = '50';
+               
+                addDeleteButton(newShape);
+                dropZone.appendChild(newShape);
+               
+                setTimeout(() => {
+                    newShape.style.opacity = '1';
+                    newShape.style.transform = 'scale(1)';
+                }, 50);
+               
+                document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+                newShape.classList.add('selected');
+                selectedElement = newShape;
+            } else if (draggedElement) {
+                if (!draggedElement.querySelector('.delete-btn')) {
+                    addDeleteButton(draggedElement);
+                }
+               
+                draggedElement.style.transition = 'all 0.3s ease';
+                draggedElement.style.position = 'absolute';
+                draggedElement.style.left = `${x}px`;
+                draggedElement.style.top = `${y}px`;
+               
+                // Set appropriate z-index based on element type
+                if (draggedElement.classList.contains('draggable')) {
+                    draggedElement.style.zIndex = '1000'; // Text on top
+                } else if (draggedElement.classList.contains('image-box')) {
+                    draggedElement.style.zIndex = '100'; // Images in middle
+                } else if (draggedElement.classList.contains('shape-item')) {
+                    draggedElement.style.zIndex = '50'; // Shapes at bottom
+                }
+               
+                dropZone.appendChild(draggedElement);
+            }
+        }
+
+        function makeElementMoveable(element) {
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            element.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                if (e.target === element || e.target.parentElement === element) {
+                    isDragging = true;
+                   
+                    const rect = element.getBoundingClientRect();
+                    initialX = e.clientX - rect.left;
+                    initialY = e.clientY - rect.top;
+                   
+                    element.style.transition = 'none';
+                    element.style.cursor = 'grabbing';
+                    element.classList.add('dragging');
+                   
+                    // Maintain proper z-index hierarchy when dragging
+                    if (element.classList.contains('draggable')) {
+                        element.style.zIndex = '1000'; // Text stays on top
+                    } else if (element.classList.contains('image-box')) {
+                        element.style.zIndex = '100'; // Images stay in middle
+                    } else if (element.classList.contains('shape-item')) {
+                        element.style.zIndex = '50'; // Shapes stay at bottom
+                    }
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                   
+                    const dropZone = document.getElementById('dropZone');
+                    const dropRect = dropZone.getBoundingClientRect();
+                   
+                    currentX = e.clientX - dropRect.left - initialX;
+                    currentY = e.clientY - dropRect.top - initialY;
+
+                    // Constrain movement within dropZone boundaries
+                    const elementRect = element.getBoundingClientRect();
+                    currentX = Math.max(0, Math.min(currentX, dropRect.width - elementRect.width));
+                    currentY = Math.max(0, Math.min(currentY, dropRect.height - elementRect.height));
+
+                    element.style.left = `${currentX}px`;
+                    element.style.top = `${currentY}px`;
+                }
+            }
+
+            function dragEnd() {
+                if (isDragging) {
+                    isDragging = false;
+                    element.style.transition = 'all 0.3s ease';
+                    element.style.cursor = 'grab';
+                    element.classList.remove('dragging');
+                }
+            }
+        }
+
+        function handleDrag(event) {
+            event.dataTransfer.setData("text/plain", event.target.id);
+        }
+
+        function dragStart(ev) {
+            ev.target.style.opacity = '0.7';
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.dataTransfer.effectAllowed = "move";
+        }
+
+        // Add dragend event listener
+        document.addEventListener('dragend', function(e) {
+            e.target.style.opacity = '1';
+        });
+
+        // Upload Image Functionality
+        document.getElementById('fileUpload').addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const draggable = document.createElement('div');
+                    draggable.id = `uploaded-${Date.now()}`;
+                    draggable.className = 'image-box';
+                    draggable.style.backgroundImage = `url('${e.target.result}')`;
+                    draggable.draggable = true;
+                    draggable.ondragstart = handleDrag;
+                    // Set middle z-index for images
+                    draggable.style.zIndex = '100';
+                   
+                    addDeleteButton(draggable);
+                   
+                    const dropZone = document.getElementById('dropZone');
+                    dropZone.appendChild(draggable);
+                   
+                    draggable.style.position = 'absolute';
+                    draggable.style.left = '50%';
+                    draggable.style.top = '50%';
+                    draggable.style.transform = 'translate(-50%, -50%)';
+                   
+                    // Make the uploaded image moveable
+                    makeElementMoveable(draggable);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function downloadOutput() {
+            const dropZone = document.getElementById('dropZone');
+           
+            // Hide delete buttons and selection outlines temporarily
+            const deleteButtons = dropZone.querySelectorAll('.delete-btn');
+            const selectedElements = dropZone.querySelectorAll('.selected');
+            const textControls = dropZone.querySelectorAll('.text-controls');
+           
+            // Store original states
+            const originalStates = new Map();
+           
+            // Hide delete buttons, selection outlines, and text controls
+            deleteButtons.forEach(btn => {
+                originalStates.set(btn, btn.style.display);
+                btn.style.display = 'none';
+            });
+           
+            selectedElements.forEach(el => {
+                originalStates.set(el, el.classList.contains('selected'));
+                el.classList.remove('selected');
+            });
+
+            textControls.forEach(control => {
+                originalStates.set(control, control.style.display);
+                control.style.display = 'none';
+            });
+
+            // Use html2canvas with proper settings
+            html2canvas(dropZone, {
+                backgroundColor: null,
+                useCORS: true,
+                allowTaint: true,
+                scale: 2, // Higher resolution
+                logging: false,
+                imageTimeout: 0, // No timeout for loading images
+                onclone: function(clonedDoc) {
+                    // Process all elements in cloned document
+                    const elements = clonedDoc.querySelectorAll('.image-box, .draggable, .shape-item');
+                    elements.forEach(el => {
+                        // Preserve transforms and positions
+                        const style = window.getComputedStyle(el);
+                        el.style.transform = style.transform;
+                        el.style.position = style.position;
+                        el.style.left = style.left;
+                        el.style.top = style.top;
+                       
+                        // Handle text elements
+                        if (el.classList.contains('draggable')) {
+                            el.style.fontFamily = style.fontFamily;
+                            el.style.fontSize = style.fontSize;
+                            el.style.color = style.color;
+                        }
+                       
+                        // Handle image elements (graphics, photos, and uploaded)
+                        if (el.classList.contains('image-box')) {
+                            // Preserve background image and its properties
+                            el.style.backgroundImage = style.backgroundImage;
+                            el.style.backgroundSize = style.backgroundSize || 'cover';
+                            el.style.backgroundPosition = style.backgroundPosition || 'center';
+                            el.style.backgroundRepeat = style.backgroundRepeat || 'no-repeat';
+                            el.style.width = style.width;
+                            el.style.height = style.height;
+                           
+                            // Ensure images maintain aspect ratio
+                            if (style.backgroundImage !== 'none') {
+                                const img = new Image();
+                                img.src = style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/i, '$1');
+                                img.onload = function() {
+                                    const aspectRatio = img.width / img.height;
+                                    const currentWidth = parseFloat(style.width);
+                                    el.style.height = (currentWidth / aspectRatio) + 'px';
+                                };
+                            }
+                        }
+                       
+                        // Handle shape elements
+                        if (el.classList.contains('shape-item')) {
+                            el.style.backgroundColor = style.backgroundColor;
+                            el.style.width = style.width;
+                            el.style.height = style.height;
+                            el.style.clipPath = style.clipPath;
+                            el.style.borderRadius = style.borderRadius;
+                        }
+                    });
+                }
+            }).then(canvas => {
+                // Create a new canvas with the same dimensions
+                const finalCanvas = document.createElement('canvas');
+                const ctx = finalCanvas.getContext('2d');
+                finalCanvas.width = canvas.width;
+                finalCanvas.height = canvas.height;
+
+                // Draw white background
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+
+                // Draw the original canvas content
+                ctx.drawImage(canvas, 0, 0);
+
+                // Convert to PNG and trigger download
+                try {
+                    const dataUrl = finalCanvas.toDataURL('image/png', 1.0);
+                    const link = document.createElement('a');
+                    link.download = 'logo-design.png';
+                    link.href = dataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } catch (error) {
+                    console.error('Error during download:', error);
+                    alert('Failed to download image. Please try again.');
+                }
+
+                // Restore original states
+                deleteButtons.forEach(btn => {
+                    btn.style.display = originalStates.get(btn);
+                });
+               
+                selectedElements.forEach(el => {
+                    if (originalStates.get(el)) {
+                        el.classList.add('selected');
+                    }
+                });
+
+                textControls.forEach(control => {
+                    control.style.display = originalStates.get(control);
+                });
+            }).catch(error => {
+                console.error('Error creating image:', error);
+                alert('Failed to create image. Please try again.');
+               
+                // Restore original states even if there's an error
+                deleteButtons.forEach(btn => {
+                    btn.style.display = originalStates.get(btn);
+                });
+               
+                selectedElements.forEach(el => {
+                    if (originalStates.get(el)) {
+                        el.classList.add('selected');
+                    }
+                });
+
+                textControls.forEach(control => {
+                    control.style.display = originalStates.get(control);
+                });
+            });
+        }
+
+        document.querySelector('.add-slogan-btn').addEventListener('click', function() {
+            const sloganText = document.getElementById('sloganInput').value;
+            if (sloganText.trim() !== '') {
+                const draggable = document.createElement('div');
+                draggable.className = 'draggable';
+                draggable.textContent = sloganText;
+                draggable.style.position = 'absolute';
+                draggable.style.cursor = 'move';
+                draggable.style.fontFamily = document.getElementById('fontSelect').value;
+                draggable.style.color = document.getElementById('textColorPicker').value;
+                draggable.style.fontSize = document.getElementById('textSize').value + 'px';
+                draggable.draggable = true;
+                draggable.id = 'draggable-' + Date.now();
+                // Set a high z-index for text elements
+                draggable.style.zIndex = '1000';
+               
+                // Add delete button
+                addDeleteButton(draggable);
+               
+                const dropZone = document.getElementById('dropZone');
+                draggable.style.left = '50%';
+                draggable.style.top = '50%';
+                draggable.style.transform = 'translate(-50%, -50%)';
+               
+                makeElementMoveable(draggable);
+               
+                dropZone.appendChild(draggable);
+                document.getElementById('sloganInput').value = '';
+            }
+        });
+
+        document.querySelectorAll('.shape').forEach(shape => {
+            shape.setAttribute('draggable', true);
+            shape.addEventListener('dragstart', function(e) {
+                const shapeType = this.getAttribute('data-shape');
+                const newShape = document.createElement('div');
+                newShape.className = 'shape';
+                newShape.setAttribute('data-shape', shapeType);
+                newShape.id = 'shape-' + Date.now();
+                newShape.style.position = 'absolute';
+                e.dataTransfer.setData('text/plain', newShape.id);
+               
+                // Clone styles
+                const styles = window.getComputedStyle(this);
+                newShape.style.width = styles.width;
+                newShape.style.height = styles.height;
+                newShape.style.background = styles.background;
+                newShape.style.clipPath = styles.clipPath;
+                newShape.style.borderRadius = styles.borderRadius;
+               
+                // Temporarily add to document
+                newShape.style.opacity = '0';
+                document.body.appendChild(newShape);
+                e.dataTransfer.setDragImage(newShape, 25, 25);
+               
+                // Clean up after drag starts
+                setTimeout(() => {
+                    document.body.removeChild(newShape);
+                }, 0);
+            });
+        });
+
+        document.querySelectorAll('.shape-item').forEach(shape => {
+            shape.addEventListener('dragstart', function(e) {
+                const shapeType = this.getAttribute('data-shape');
+                e.dataTransfer.setData('shape-type', shapeType); // Store shape type
+            });
+        });
+
+        function changeSloganFont(fontFamily) {
+            const dropZone = document.getElementById('dropZone');
+            const slogans = dropZone.getElementsByClassName('draggable');
+           
+            Array.from(slogans).forEach(slogan => {
+                slogan.style.fontFamily = fontFamily;
+            });
+        }
+
+        // Track selected element
+        let selectedElement = null;
+
+        // Add click handler to make elements selectable
+        document.addEventListener('click', function(e) {
+            // Remove previous selection
+            document.querySelectorAll('.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+           
+            const clickedElement = e.target;
+           
+            // Check if clicked element is a shape, text, or image
+            if (clickedElement.classList.contains('shape-item') ||
+                clickedElement.classList.contains('draggable') ||
+                clickedElement.classList.contains('image-box')) {
+               
+                clickedElement.classList.add('selected');
+                selectedElement = clickedElement;
+               
+                // Update color pickers to match selected element's current colors
+                if (clickedElement.classList.contains('draggable')) {
+                    const currentColor = window.getComputedStyle(clickedElement).color;
+                    document.getElementById('textColorPicker').value = rgbToHex(currentColor);
+                } else if (clickedElement.classList.contains('shape-item') ||
+                           clickedElement.classList.contains('image-box')) {
+                    const currentBgColor = window.getComputedStyle(clickedElement).backgroundColor;
+                    document.getElementById('shapeColorPicker').value = rgbToHex(currentBgColor);
+                }
+               
+                // Update size slider for shapes
+                if (clickedElement.classList.contains('shape-item')) {
+                    const shapeSize = parseInt(clickedElement.style.width) || 50;
+                    document.getElementById('shapeSize').value = shapeSize;
+                }
+            } else {
+                selectedElement = null;
+            }
+        });
+
+        // Update text color change event listener
+        document.getElementById('textColorPicker').addEventListener('input', function(e) {
+            const dropZone = document.getElementById('dropZone');
+            const textElements = dropZone.getElementsByClassName('draggable');
+           
+            // Apply color to all text elements in the drop zone
+            Array.from(textElements).forEach(element => {
+                element.style.color = e.target.value;
+            });
+        });
+
+        // Update the color change event listeners
+        document.getElementById('shapeColorPicker').addEventListener('input', function(e) {
+            if (selectedElement) {
+                if (selectedElement.classList.contains('shape-item')) {
+                    // For shape elements
+                    selectedElement.style.backgroundColor = e.target.value;
+                } else if (selectedElement.classList.contains('image-box')) {
+                    // For image boxes
+                    selectedElement.style.backgroundColor = e.target.value;
+                    selectedElement.style.backgroundImage = 'none';
+                }
+            }
+        });
+
+        // Add styles for selected elements
+        const style = document.createElement('style');
+        style.textContent = `
+            .selected {
+                outline: 2px solid #0071FF !important;
+                outline-offset: 2px;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add size control functionality
+        document.getElementById('shapeSize').addEventListener('input', function(e) {
+            if (selectedElement && selectedElement.classList.contains('shape-item')) {
+                const size = e.target.value;
+                if (selectedElement.getAttribute('data-shape') === 'rectangle') {
+                    selectedElement.style.width = `${size * 1.4}px`;
+                    selectedElement.style.height = `${size * 0.8}px`;
+                } else {
+                    selectedElement.style.width = `${size}px`;
+                    selectedElement.style.height = `${size}px`;
+                }
+            }
+        });
+
+        // Helper function to convert RGB to Hex color
+        function rgbToHex(rgb) {
+            // If already hex, return as is
+            if (rgb.startsWith('#')) return rgb;
+           
+            // Extract RGB values
+            const rgbValues = rgb.match(/\d+/g);
+            if (!rgbValues) return '#000000';
+           
+            const r = parseInt(rgbValues[0]);
+            const g = parseInt(rgbValues[1]);
+            const b = parseInt(rgbValues[2]);
+           
+            return '#' + [r, g, b].map(x => {
+                const hex = x.toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            }).join('');
+        }
+
+        // Update shape creation to include color
+        function createShape(shapeType, x, y) {
+            const newShape = document.createElement('div');
+            newShape.className = 'shape-item';
+            newShape.setAttribute('data-shape', shapeType);
+            newShape.id = `shape-${Date.now()}`;
+            newShape.draggable = true;
+           
+            newShape.style.position = 'absolute';
+            newShape.style.left = `${x}px`;
+            newShape.style.top = `${y}px`;
+            newShape.style.backgroundColor = document.getElementById('shapeColorPicker').value;
+            // Ensure shapes have lowest z-index
+            newShape.style.zIndex = '50';
+           
+            addDeleteButton(newShape);
+            makeElementMoveable(newShape);
+            return newShape;
+        }
+
+        // Add this JavaScript for sidebar toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const body = document.body;
+           
+            // Initialize sidebar state
+            let isVisible = false;
+
+            sidebarToggle.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event bubbling
+                isVisible = !isVisible;
+               
+                if (isVisible) {
+                    sidebar.style.visibility = 'visible';
+                    sidebar.style.opacity = '1';
+                    sidebar.classList.add('visible');
+                    body.classList.add('sidebar-visible');
+                } else {
+                    sidebar.classList.remove('visible');
+                    body.classList.remove('sidebar-visible');
+                    // Delay hiding the sidebar until transition completes
+                    setTimeout(() => {
+                        if (!isVisible) {
+                            sidebar.style.visibility = 'hidden';
+                            sidebar.style.opacity = '0';
+                        }
+                    }, 300); // Match transition duration
+                }
+            });
+
+            // Close sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                if (isVisible &&
+                    !sidebar.contains(e.target) &&
+                    e.target !== sidebarToggle) {
+                    isVisible = false;
+                    sidebar.classList.remove('visible');
+                    body.classList.remove('sidebar-visible');
+                    setTimeout(() => {
+                        if (!isVisible) {
+                            sidebar.style.visibility = 'hidden';
+                            sidebar.style.opacity = '0';
+                        }
+                    }, 300);
+                }
+            });
+
+            // Prevent clicks inside sidebar from closing it
+            sidebar.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Add these event listeners for size controls
+        document.addEventListener('DOMContentLoaded', function() {
+            const textSizeSlider = document.getElementById('textSize');
+            const imageSizeSlider = document.getElementById('imageSize');
+            const textSizeValue = document.getElementById('textSizeValue');
+            const imageSizeValue = document.getElementById('imageSizeValue');
+
+            // Text size control
+            textSizeSlider.addEventListener('input', function(e) {
+                const size = e.target.value;
+                textSizeValue.textContent = size + 'px';
+               
+                if (selectedElement && selectedElement.classList.contains('draggable')) {
+                    selectedElement.style.fontSize = size + 'px';
+                }
+            });
+
+            // Image size control
+            imageSizeSlider.addEventListener('input', function(e) {
+                const size = e.target.value;
+                imageSizeValue.textContent = size + 'px';
+               
+                if (selectedElement && selectedElement.classList.contains('image-box')) {
+                    selectedElement.style.width = size + 'px';
+                    selectedElement.style.height = size + 'px';
+                }
+            });
+
+            // Update size controls when selecting elements
+            document.addEventListener('click', function(e) {
+                const clickedElement = e.target;
+               
+                if (clickedElement.classList.contains('draggable')) {
+                    // Update text size slider for text elements
+                    const currentSize = parseInt(window.getComputedStyle(clickedElement).fontSize);
+                    textSizeSlider.value = currentSize;
+                    textSizeValue.textContent = currentSize + 'px';
+                } else if (clickedElement.classList.contains('image-box')) {
+                    // Update image size slider for images
+                    const currentSize = parseInt(window.getComputedStyle(clickedElement).width);
+                    imageSizeSlider.value = currentSize;
+                    imageSizeValue.textContent = currentSize + 'px';
+                }
+            });
+
+            // Update new text elements to use current size
+            document.querySelector('.add-slogan-btn').addEventListener('click', function() {
+                const sloganText = document.getElementById('sloganInput').value;
+                if (sloganText.trim() !== '') {
+                    const currentTextSize = textSizeSlider.value;
+                    const draggable = document.createElement('div');
+                    draggable.className = 'draggable';
+                    draggable.textContent = sloganText;
+                    draggable.style.position = 'absolute';
+                    draggable.style.cursor = 'move';
+                    draggable.style.fontFamily = document.getElementById('fontSelect').value;
+                    draggable.style.color = document.getElementById('textColorPicker').value;
+                    draggable.style.fontSize = currentTextSize + 'px';
+                    draggable.draggable = true;
+                    draggable.id = 'draggable-' + Date.now();
+                    // Set a high z-index for text elements
+                    draggable.style.zIndex = '1000';
+                   
+                    addDeleteButton(draggable);
+                   
+                    const dropZone = document.getElementById('dropZone');
+                    draggable.style.left = '50%';
+                    draggable.style.top = '50%';
+                    draggable.style.transform = 'translate(-50%, -50%)';
+                   
+                    makeElementMoveable(draggable);
+                   
+                    dropZone.appendChild(draggable);
+                    document.getElementById('sloganInput').value = '';
+                }
+            });
+
+            // Update new images to use current size
+            document.getElementById('fileUpload').addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const currentImageSize = imageSizeSlider.value;
+                    const draggable = document.createElement('div');
+                    draggable.id = `uploaded-${Date.now()}`;
+                    draggable.className = 'image-box';
+                    draggable.style.backgroundImage = `url('${e.target.result}')`;
+                    draggable.draggable = true;
+                    draggable.ondragstart = handleDrag;
+                    // Set middle z-index for images
+                    draggable.style.zIndex = '100';
+                   
+                    addDeleteButton(draggable);
+                   
+                    const dropZone = document.getElementById('dropZone');
+                    dropZone.appendChild(draggable);
+                   
+                    draggable.style.position = 'absolute';
+                    draggable.style.left = '50%';
+                    draggable.style.top = '50%';
+                    draggable.style.transform = `translate(-50%, -50%)`;
+                    draggable.style.width = currentImageSize + 'px';
+                    draggable.style.height = currentImageSize + 'px';
+                }
+            });
+        });
+
+        // Add drag over effect to dropzone
+        const dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', function(e) {
+            this.classList.add('drag-over');
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            this.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            this.classList.remove('drag-over');
+        });
+
+        // Function to add delete button to elements
+        function addDeleteButton(element) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = '×';
+            deleteBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent triggering other click events
+                element.style.transition = 'all 0.3s ease';
+                element.style.opacity = '0';
+                element.style.transform = 'scale(0.8)';
+               
+                // Remove element after animation
+                setTimeout(() => {
+                    element.remove();
+                }, 300);
+            });
+            element.appendChild(deleteBtn);
+        }
+
+        // Add keyboard delete support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Delete' || e.key === 'Backspace') {
+                const selectedElement = document.querySelector('.selected');
+                if (selectedElement) {
+                    // Add fade-out animation
+                    selectedElement.style.transition = 'all 0.3s ease';
+                    selectedElement.style.opacity = '0';
+                    selectedElement.style.transform = 'scale(0.8)';
+                   
+                    // Remove element after animation
+                    setTimeout(() => {
+                        selectedElement.remove();
+                    }, 300);
+                }
+            }
+        });
+
+        function rotateShape(degrees) {
+            const selectedElement = document.querySelector('.selected');
+            if (selectedElement) {
+                const currentTransform = window.getComputedStyle(selectedElement).transform;
+                const matrix = new DOMMatrix(currentTransform);
+                const angle = Math.atan2(matrix.e, matrix.f);
+                const newAngle = angle + (degrees * Math.PI / 180);
+                const newTransform = `rotate(${degrees}deg)`;
+                selectedElement.style.transform = newTransform;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const rotationSlider = document.getElementById('rotationSlider');
+            const rotationValue = document.getElementById('rotationValue');
+            const rotateLeft = document.getElementById('rotateLeft');
+            const rotateRight = document.getElementById('rotateRight');
+            const resetRotation = document.getElementById('resetRotation');
+
+            let selectedElement = null;
+
+            // Update the click handler to track selected elements
+            document.addEventListener('click', function(e) {
+                const clickedElement = e.target;
+               
+                // Remove previous selection
+                document.querySelectorAll('.selected').forEach(el => {
+                    el.classList.remove('selected');
+                });
+               
+                // Check if clicked element is rotatable
+                if (clickedElement.classList.contains('draggable') ||
+                    clickedElement.classList.contains('image-box') ||
+                    clickedElement.classList.contains('shape-item')) {
+                   
+                    clickedElement.classList.add('selected');
+                    selectedElement = clickedElement;
+                   
+                    // Update rotation slider to match current rotation
+                    const currentRotation = getCurrentRotation(selectedElement);
+                    rotationSlider.value = currentRotation;
+                    rotationValue.textContent = `${currentRotation}°`;
+                } else {
+                    selectedElement = null;
+                }
+            });
+
+            // Rotation slider handler
+            rotationSlider.addEventListener('input', function(e) {
+                if (selectedElement) {
+                    const angle = e.target.value;
+                    rotationValue.textContent = `${angle}°`;
+                    selectedElement.style.transform = `rotate(${angle}deg)`;
+                }
+            });
+
+            // Rotate left button (-90 degrees)
+            rotateLeft.addEventListener('click', function() {
+                if (selectedElement) {
+                    const currentRotation = getCurrentRotation(selectedElement);
+                    const newRotation = currentRotation - 90;
+                    updateRotation(newRotation);
+                }
+            });
+
+            // Rotate right button (+90 degrees)
+            rotateRight.addEventListener('click', function() {
+                if (selectedElement) {
+                    const currentRotation = getCurrentRotation(selectedElement);
+                    const newRotation = currentRotation + 90;
+                    updateRotation(newRotation);
+                }
+            });
+
+            // Reset rotation button
+            resetRotation.addEventListener('click', function() {
+                if (selectedElement) {
+                    updateRotation(0);
+                }
+            });
+
+            // Helper function to get current rotation
+            function getCurrentRotation(element) {
+                const transform = window.getComputedStyle(element).transform;
+                if (transform === 'none') return 0;
+               
+                const values = transform.split('(')[1].split(')')[0].split(',');
+                const a = values[0];
+                const b = values[1];
+                const angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+                return angle < 0 ? angle + 360 : angle;
+            }
+
+            // Helper function to update rotation
+            function updateRotation(angle) {
+                if (!selectedElement) return;
+               
+                // Normalize angle to 0-360
+                angle = angle % 360;
+                if (angle < 0) angle += 360;
+               
+                // Update slider and display
+                rotationSlider.value = angle;
+                rotationValue.textContent = `${angle}°`;
+               
+                // Apply rotation
+                selectedElement.style.transform = `rotate(${angle}deg)`;
+            }
+
+            // Add keyboard shortcuts for rotation
+            document.addEventListener('keydown', function(e) {
+                if (!selectedElement) return;
+               
+                const currentRotation = getCurrentRotation(selectedElement);
+               
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        if (e.shiftKey) {
+                            updateRotation(currentRotation - 90);
+                        } else {
+                            updateRotation(currentRotation - 1);
+                        }
+                        e.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        if (e.shiftKey) {
+                            updateRotation(currentRotation + 90);
+                        } else {
+                            updateRotation(currentRotation + 1);
+                        }
+                        e.preventDefault();
+                        break;
+                    case 'r':
+                        updateRotation(0);
+                        e.preventDefault();
+                        break;
+                }
+            });
+        });
+        /* Update your existing text creation code */
+        function createDraggableText(text, x, y) {
+            const textElement = document.createElement('div');
+            textElement.className = 'draggable-text';
+            textElement.innerHTML = text;
+            textElement.style.position = 'absolute';
+            textElement.style.left = x + 'px';
+            textElement.style.top = y + 'px';
+            textElement.style.cursor = 'move';
+            textElement.style.userSelect = 'none';
+           
+            // Add text styling controls
+            const textControls = document.createElement('div');
+            textControls.className = 'text-controls';
+            textControls.innerHTML = `
+                <div class="text-handle">⋮</div>
+                <div class="text-options">
+                    <button class="font-size-up">A+</button>
+                    <button class="font-size-down">A-</button>
+                    <input type="color" class="text-color" value="#000000">
+                    <select class="font-family">
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Courier New">Courier New</option>
+                    </select>
+                </div>
+            `;
+
+            textElement.appendChild(textControls);
+
+            // Make text editable on double click
+            textElement.addEventListener('dblclick', function(e) {
+                if (e.target === textElement) {
+                    textElement.contentEditable = true;
+                    textElement.focus();
+                }
+            });
+
+            // Disable contentEditable on blur
+            textElement.addEventListener('blur', function() {
+                textElement.contentEditable = false;
+            });
+
+            // Add drag functionality
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+
+            textElement.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                if (e.target.closest('.text-controls')) return;
+               
+                initialX = e.clientX - textElement.offsetLeft;
+                initialY = e.clientY - textElement.offsetTop;
+               
+                if (e.target === textElement) {
+                    isDragging = true;
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                   
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+
+                    // Get dropbox boundaries
+                    const dropbox = document.querySelector('.dropbox');
+                    const dropboxRect = dropbox.getBoundingClientRect();
+                    const textRect = textElement.getBoundingClientRect();
+
+                    // Constrain movement within dropbox
+                    currentX = Math.max(0, Math.min(currentX, dropboxRect.width - textRect.width));
+                    currentY = Math.max(0, Math.min(currentY, dropboxRect.height - textRect.height));
+
+                    textElement.style.left = currentX + 'px';
+                    textElement.style.top = currentY + 'px';
+                }
+            }
+
+            function dragEnd() {
+                isDragging = false;
+            }
+
+            // Add text styling functionality
+            const fontSizeUp = textControls.querySelector('.font-size-up');
+            const fontSizeDown = textControls.querySelector('.font-size-down');
+            const colorPicker = textControls.querySelector('.text-color');
+            const fontSelect = textControls.querySelector('.font-family');
+
+            fontSizeUp.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const currentSize = parseInt(window.getComputedStyle(textElement).fontSize);
+                textElement.style.fontSize = (currentSize + 2) + 'px';
+            });
+
+            fontSizeDown.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const currentSize = parseInt(window.getComputedStyle(textElement).fontSize);
+                textElement.style.fontSize = Math.max(8, currentSize - 2) + 'px';
+            });
+
+            colorPicker.addEventListener('input', (e) => {
+                e.stopPropagation();
+                textElement.style.color = e.target.value;
+            });
+
+            fontSelect.addEventListener('change', (e) => {
+                e.stopPropagation();
+                textElement.style.fontFamily = e.target.value;
+            });
+
+            return textElement;
+        }
+
+    </script>
 </body>
+
 </html>

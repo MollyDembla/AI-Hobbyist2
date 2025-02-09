@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invicta | Logo Generate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("faltu-bg7.jpg");
+            background-position: center;
+            background-size: cover;
+            color: black;
+        }
+        body h1{
+            color: white;
+        }
+
+        .dropbox {
+            width: 600px;
+            min-height: 500px;
+            padding: 30px;
+            margin: 30px auto;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dropbox::before {
+            content: 'Drag and Drop Here';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            pointer-events: none;
+            white-space: nowrap;
+            transition: opacity 0.3s ease;
+        }
+
+        .dropbox:not(:empty)::before {
+            opacity: 0;
+        }
+
+        .dropbox:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .dropbox.drag-over {
+            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .dropbox .draggable,
+        .dropbox .design-item,
+        .dropbox .image-box {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            cursor: move;
+        }
+
+        .dropbox .draggable:hover,
+        .dropbox .design-item:hover,
+        .dropbox .image-box:hover {
+            transform: scale(1.02) rotate(1deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        .dropbox {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center center;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .dropbox.drag-over {
+            animation: pulse 1s infinite;
+        }
+
+        .selection-area {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            opacity: 1;
+        }
+        #sloganDropdown:hover {
+           opacity: 0.8;
+        }
+        #imageDropdown:hover {
+           opacity: 0.8;
+        }
+
+        select {
+            width: 45%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .draggable {
+            position: absolute;
+            margin: 10px;
+            padding: 10px;
+            font-size: 18px;
+            cursor: grab;
+            background-color: transparent;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            text-align: center;
+            color: black;
+            z-index: 1000;
+        }
+
+        .image-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: grab;
+            border: 1px solid transparent;
+        }
+
+        .download-button {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .download-button:hover {
+            background-color: #45a049;
+        }
+
+        .upload-button {
+            padding: 10px 20px;
+            background-color: #0071FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            top: 10px;
+            margin-top: 10px;
+        }
+
+        .upload-button:hover {
+            background-color: #005DD1;
+        }
+
+        .upload-container {
+            margin-top: 10px;
+        }
+
+        .boxs {
+            margin-top: 25px;
+            width: fit-content;
+            height: 250px;
+            border: 2px solid black;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .boxs h3{
+            margin-top: -30px;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .image-box {
+            width: 100px !important;
+            height: 100px !important;
+            margin: 5px auto !important;
+            flex-shrink: 0;
+        }
+
+        #box1 {
+            width: 130px;
+            height: 130px;
+            margin: 10px;
+            background-size: cover;
+            background-position: center;
+            background-image: url('./faltu.png');
+        }
+
+        #box2 {
+            width: 130px;
+            height: 130px;
+            margin: 10px;
+            background-size: cover;
+            background-position: center;
+            background-image: url('./faltu2.jpg');
+        }
+
+        #box3 {
+            width: 130px;
+            height: 130px;
+            margin: 10px;
+            background-size: cover;
+            background-position: center;
+            background-image: url("faltu3.jpg");
+        }
+
+        #box4 {
+            width: 130px;
+            height: 130px;
+            margin: 10px;
+            background-size: cover;
+            background-position: center;
+            background-image: url("faltu4.jpg");
+        }
+
+        #box5 {
+            width: 130px;
+            height: 130px;
+            margin: 10px;
+            background-size: cover;
+            background-position: center;
+            background-image: url("faltu5.jpg");
+        }
+
+        .custom-added {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .custom-added .image-box,
+        .custom-added .draggable {
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(51, 51, 51, 0.9);
+            padding: 20px;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: -230px;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar::before {
+            content: '≡';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar:hover {
+            left: 0;
+        }
+
+        .sidebar:hover::before {
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .main-content {
+            margin-left: 20px;
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar:hover + .main-content {
+            margin-left: 250px;
+        }
+
+        .sidebar *,
+        .main-content * {
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content.show {
+            display: block !important;
+        }
+
+        .sidebar::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.1)
+            );
+            pointer-events: none;
+        }
+
+        .sidebar h2,
+        .sidebar-section {
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:hover h2,
+        .sidebar:hover .sidebar-section {
+            opacity: 1;
+        }
+
+        .sidebar h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-menu li {
+            padding: 12px 15px;
+            margin: 8px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-menu li:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .sidebar-section {
+            margin-top: 30px;
+            padding: 20px 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .sidebar-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-section h3 i {
+            font-size: 18px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-section:hover h3 i {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        #customSlogan {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        #customSlogan:focus {
+            outline: none;
+            border-color: #0071FF;
+            box-shadow: 0 0 0 2px rgba(0, 113, 255, 0.2);
+        }
+
+        .sidebar select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar select:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .color-picker {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .color-picker label {
+            font-size: 14px;
+            color: white;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .color-picker input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .color-picker input[type="color"]:hover {
+            transform: scale(1.02);
+        }
+
+        /* Scrollbar styling */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Box container styling */
+        .box {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .image-box {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .image-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Add styles for the custom select dropdown */
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-results__option {
+            display: flex !important;
+            align-items: center;
+            padding: 8px !important;
+        }
+
+        .select2-results__option img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        .select2-selection__rendered img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 4px;
+        }
+
+        /* Add styles for the color dropdown */
+        .color-dropdown {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            color: black;
+        }
+
+        .dropdown-header {
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-header:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .dropdown-header .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-header.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .dropdown-content.show {
+            max-height: 300px;
+            padding: 15px;
+        }
+
+        .color-picker {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .color-picker:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Add styles for font section */
+        .font-dropdown {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 10px;
+            color: black;
+        }
+
+        #fontSelector {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .font-size-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .font-size-control label {
+            color: white;
+            font-size: 14px;
+        }
+
+        .font-size-control input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        #fontSizeDisplay {
+            color: white;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        /* Style the font options in the dropdown */
+        #fontSelector option {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        /* Preview the font in the dropdown */
+        #fontSelector option[value="Arial, sans-serif"] { font-family: Arial, sans-serif; }
+        #fontSelector option[value="'Times New Roman', serif"] { font-family: 'Times New Roman', serif; }
+        #fontSelector option[value="'Courier New', monospace"] { font-family: 'Courier New', monospace; }
+        #fontSelector option[value="Georgia, serif"] { font-family: Georgia, serif; }
+        #fontSelector option[value="'Trebuchet MS', sans-serif"] { font-family: 'Trebuchet MS', sans-serif; }
+        #fontSelector option[value="Verdana, sans-serif"] { font-family: Verdana, sans-serif; }
+        #fontSelector option[value="Impact, sans-serif"] { font-family: Impact, sans-serif; }
+        #fontSelector option[value="'Arial Black', sans-serif"] { font-family: 'Arial Black', sans-serif; }
+        #fontSelector option[value="'Palatino Linotype', serif"] { font-family: 'Palatino Linotype', serif; }
+        #fontSelector option[value="'Comic Sans MS', cursive"] { font-family: 'Comic Sans MS', cursive; }
+
+        /* Add these styles for the header */
+        .main-content h1 {
+            font-size: 48px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            text-shadow: 
+                0 2px 4px rgba(0,0,0,0.4),
+                0 4px 8px rgba(0,0,0,0.3),
+                0 8px 16px rgba(0,0,0,0.2);
+            position: relative;
+            padding: 10px 30px;
+            background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 
+                0 5px 15px rgba(0,0,0,0.3),
+                inset 0 1px 1px rgba(255,255,255,0.2);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 
+                    0 2px 4px rgba(0,0,0,0.4),
+                    0 4px 8px rgba(0,0,0,0.3),
+                    0 8px 16px rgba(0,0,0,0.2),
+                    0 0 5px rgba(255,255,255,0.1),
+                    0 0 10px rgba(255,255,255,0.1);
+            }
+            to {
+                text-shadow: 
+                    0 2px 4px rgba(0,0,0,0.4),
+                    0 4px 8px rgba(0,0,0,0.3),
+                    0 8px 16px rgba(0,0,0,0.2),
+                    0 0 15px rgba(255,255,255,0.2),
+                    0 0 20px rgba(255,255,255,0.2);
+            }
+        }
+
+        .main-content h1:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 7px 20px rgba(0,0,0,0.4),
+                inset 0 1px 1px rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .main-content h1::before,
+        .main-content h1::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.8) 50%,
+                rgba(255,255,255,0) 100%);
+        }
+
+        .main-content h1::before {
+            left: -40px;
+            transform: translateY(-50%);
+        }
+
+        .main-content h1::after {
+            right: -40px;
+            transform: translateY(-50%);
+        }
+
+        .designs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .design-item {
+            cursor: grab;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .design-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .design-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* Scrollbar styling for designs container */
+        .designs-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .designs-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .designs-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .designs-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .designs-dropdown {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .designs-dropdown .dropdown-header {
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .designs-dropdown .dropdown-header:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .designs-dropdown .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .designs-dropdown .dropdown-content.show {
+            max-height: 300px;
+            padding: 15px;
+        }
+
+        .designs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .design-item {
+            cursor: grab;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .design-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .design-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* Scrollbar styling */
+        .designs-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .designs-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .designs-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .designs-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Update dropdown header styles */
+        .dropdown-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-header i {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Enhanced upload section styles */
+        .upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .upload-container:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-button {
+            position: relative;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #0071FF, #00C6FF);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 113, 255, 0.3);
+        }
+
+        .upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 113, 255, 0.4);
+        }
+
+        .upload-button::before {
+            content: '📁';
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .upload-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .upload-button:hover::after {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Add upload status indicator */
+        .upload-status {
+            font-size: 14px;
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .upload-container.dragging {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #0071FF;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Add preview container */
+        .upload-preview {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+            position: relative;
+        }
+
+        .upload-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-preview::after {
+            content: 'Preview';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Enhanced download button styles */
+        .download-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .download-button {
+            position: relative;
+            padding: 18px 45px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            background: linear-gradient(135deg, #00c853, #009624);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 200, 83, 0.3);
+        }
+
+        .download-button::before {
+            content: '⬇️';
+            margin-right: 12px;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+
+        .download-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(45deg) translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 200, 83, 0.4);
+            background: linear-gradient(135deg, #00e676, #00b327);
+        }
+
+        .download-button:hover::after {
+            transform: rotate(45deg) translateX(50%);
+        }
+
+        .download-button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 20px rgba(0, 200, 83, 0.4);
+        }
+
+        /* Add loading animation */
+        .download-button.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .download-button.loading::before {
+            content: '↻';
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success animation */
+        .download-button.success {
+            background: linear-gradient(135deg, #00e676, #00c853);
+            pointer-events: none;
+        }
+
+        .download-button.success::before {
+            content: '✓';
+        }
+
+        /* Add download progress bar */
+        .download-progress {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 15px auto 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-progress.show {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00c853, #009624);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* Updated design items styling */
+        .design-item {
+            position: relative;
+            cursor: grab;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 12px;
+        }
+
+        .design-item:active {
+            cursor: grabbing;
+        }
+
+        .design-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .design-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .design-overlay i {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .design-overlay span {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .design-item:hover .design-overlay {
+            opacity: 1;
+        }
+
+        .design-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Dragging state */
+        .design-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        /* Designs container */
+        .designs-container {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Dropdown styling */
+        .designs-dropdown .dropdown-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .designs-dropdown .dropdown-header i {
+            font-size: 16px;
+        }
+
+        /* Add styles for used designs */
+        .design-item.used {
+            opacity: 0.5;
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        .design-item.used::after {
+            content: 'Used';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .design-item.used:hover {
+            transform: none;
+        }
+
+        .design-item.used .design-overlay {
+            display: none;
+        }
+
+        .design-item.used img {
+            filter: grayscale(100%);
+        }
+
+        /* Add a subtle shake animation for when trying to drag a used item */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .design-item.used:active {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* Add styles for resizable elements and toast notifications */
+        .resizer {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border: 1px solid #4CAF50;
+            border-radius: 50%;
+            position: absolute;
+            right: -5px;
+            bottom: -5px;
+            cursor: se-resize;
+            z-index: 1000;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Improve dragged image appearance */
+        #dropZone img {
+            user-select: none;
+            -webkit-user-drag: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        #dropZone img:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Prevent text selection during drag */
+        .design-item {
+            user-select: none;
+        }
+    </style>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-indicator">
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+                <div class="indicator-dot"></div>
+            </div>
+            <h2>Menu</h2>
+            
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-font"></i> Custom Slogan</h3>
+                <input type="text" id="customSlogan" placeholder="Write your own slogan" onkeydown="handleSloganInput(event)" />
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-shapes"></i> Shapes</h3>
+                <select id="imageDropdown" onchange="createDraggableImage()">
+                    <option value="" disabled selected>Select a Shape</option>
+                    <option value="shape-circle.png">Circle</option>
+                    <option value="shape-rec.png">Rectangle</option>
+                    <option value="faltu3.jpg">Square</option>
+                    <option value="faltu4.jpg">Octagon</option>
+                </select>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-images"></i> Designs</h3>
+                <div class="designs-dropdown">
+                    <div class="dropdown-header" onclick="toggleDesignOptions()">
+                        <i class="fas fa-layer-group"></i> Drag & Drop Designs <span class="arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content" id="designOptions">
+                        <div class="designs-container">
+                            <div class="design-item" draggable="true" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)">
+                                <img src="faltu.png" alt="Design 1">
+                                <div class="design-overlay">
+                                    <i class="fas fa-arrows-alt"></i>
+                                    <span>Drag me</span>
+                                </div>
+                            </div>
+                            <div class="design-item" draggable="true" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)">
+                                <img src="faltu2.jpg" alt="Design 2">
+                                <div class="design-overlay">
+                                    <i class="fas fa-arrows-alt"></i>
+                                    <span>Drag me</span>
+                                </div>
+                            </div>
+                            <div class="design-item" draggable="true" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)">
+                                <img src="faltu3.jpg" alt="Design 3">
+                                <div class="design-overlay">
+                                    <i class="fas fa-arrows-alt"></i>
+                                    <span>Drag me</span>
+                                </div>
+                            </div>
+                            <div class="design-item" draggable="true" ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)">
+                                <img src="faltu4.jpg" alt="Design 4">
+                                <div class="design-overlay">
+                                    <i class="fas fa-arrows-alt"></i>
+                                    <span>Drag me</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-palette"></i> Colors</h3>
+                <div class="color-dropdown">
+                    <div class="dropdown-header" onclick="toggleColorOptions()">
+                        Select Color Options <span class="arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content" id="colorOptions">
+                        <div class="color-picker">
+                            <label for="textColor">Text Color:</label>
+                            <input type="color" id="textColor" value="#000000" onchange="updateTextColor(event)">
+                        </div>
+                        <div class="color-picker">
+                            <label for="shapeColor">Shape Color:</label>
+                            <input type="color" id="shapeColor" value="#000000" onchange="updateShapeColor(event)">
+                        </div>
+                        <div class="color-picker">
+                            <label for="shapeBorder">Border Color:</label>
+                            <input type="color" id="shapeBorder" value="#000000" onchange="updateBorderColor(event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-text-height"></i> Fonts</h3>
+                <div class="font-dropdown">
+                    <div class="dropdown-header" onclick="toggleFontOptions()">
+                        Select Font Style <span class="arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content" id="fontOptions">
+                        <select id="fontSelector" onchange="updateFontStyle()">
+                            <option value="Arial, sans-serif">Arial</option>
+                            <option value="'Times New Roman', serif">Times New Roman</option>
+                            <option value="'Courier New', monospace">Courier New</option>
+                            <option value="Georgia, serif">Georgia</option>
+                            <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                            <option value="Verdana, sans-serif">Verdana</option>
+                            <option value="Impact, sans-serif">Impact</option>
+                            <option value="'Arial Black', sans-serif">Arial Black</option>
+                            <option value="'Palatino Linotype', serif">Palatino</option>
+                            <option value="'Comic Sans MS', cursive">Comic Sans</option>
+                        </select>
+                        
+                        <div class="font-size-control">
+                            <label for="fontSize">Font Size:</label>
+                            <input type="range" id="fontSize" min="12" max="72" value="18" onchange="updateFontSize(this.value)">
+                            <span id="fontSizeDisplay">18px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <h1>Invicta</h1>
+
+            <!-- Drop Zone -->
+            <div class="dropbox" id="dropZone" ondrop="handleDrop(event)" ondragover="allowDrop(event)"></div>
+
+            <div class="custom-added" id="customAddedSection"></div>
+
+            <!-- Upload Section -->
+            <div class="upload-container">
+                <div class="upload-preview">
+                    <img id="imagePreview" src="" alt="Preview">
+                </div>
+                <label class="upload-button" for="fileUpload">
+                    Upload Image
+                </label>
+                <input type="file" id="fileUpload" accept="image/*">
+                <div class="upload-status"></div>
+            </div>
+
+            <!-- Download Button -->
+            <div class="download-section">
+                <button class="download-button" onclick="downloadOutput()">
+                    Download Output
+                </button>
+                <div class="download-progress">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+            const dropZone = document.getElementById('dropZone');
+            dropZone.classList.add('drag-over');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const dropZone = document.getElementById('dropZone');
+            dropZone.classList.remove('drag-over');
+            
+            const data = event.dataTransfer.getData("text/plain");
+            const originalElement = document.getElementById(data);
+            
+            if (originalElement) {
+                const clone = originalElement.cloneNode(true);
+                clone.id = `design-${Date.now()}`; // Give the clone a unique ID
+                
+                // Position the clone where it was dropped
+                const rect = dropZone.getBoundingClientRect();
+                clone.style.position = 'absolute';
+                clone.style.left = `${event.clientX - rect.left - clone.offsetWidth / 2}px`;
+                clone.style.top = `${event.clientY - rect.top - clone.offsetHeight / 2}px`;
+                
+                // Make the clone draggable within the drop zone
+                clone.draggable = true;
+                clone.ondragstart = handleDrag;
+                
+                dropZone.appendChild(clone);
+            }
+        }
+
+        function handleDrag(event) {
+            event.dataTransfer.setData("text/plain", event.target.closest('.design-item').id);
+        }
+
+        function createDraggableImage() {
+            const dropdown = document.getElementById('imageDropdown');
+            const selectedValue = dropdown.value;
+            const shapeColor = document.getElementById('shapeColor').value;
+            const borderColor = document.getElementById('shapeBorder').value;
+
+            if (selectedValue) {
+                const draggable = document.createElement('div');
+                draggable.id = `image-${Date.now()}`;
+                draggable.className = 'image-box';
+                
+                // Apply current colors
+                draggable.style.backgroundColor = shapeColor;
+                draggable.style.border = `2px solid ${borderColor}`;
+                
+                // Create and preload the image
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = function() {
+                    draggable.style.backgroundImage = `url('${selectedValue}')`;
+                    draggable.style.backgroundRepeat = 'no-repeat';
+                    draggable.style.backgroundPosition = 'center';
+                    draggable.style.backgroundSize = 'cover';
+                };
+                img.src = selectedValue;
+                
+                draggable.draggable = true;
+                draggable.ondragstart = handleDrag;
+                document.getElementById('customAddedSection').appendChild(draggable);
+            }
+        }
+
+        function handleSloganInput(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('customSlogan');
+                const value = input.value.trim();
+
+                if (value) {
+                    const draggable = document.createElement('p');
+                    draggable.id = `slogan-${Date.now()}`;
+                    draggable.textContent = value;
+                    draggable.className = 'draggable';
+                    draggable.draggable = true;
+                    draggable.ondragstart = handleDrag;
+                    
+                    // Apply current font settings
+                    const fontFamily = document.getElementById('fontSelector').value;
+                    const fontSize = document.getElementById('fontSize').value;
+                    draggable.style.fontFamily = fontFamily;
+                    draggable.style.fontSize = fontSize + 'px';
+                    
+                    // Position in drop zone
+                    const dropZone = document.getElementById('dropZone');
+                    draggable.style.position = 'absolute';
+                    draggable.style.left = '50%';
+                    draggable.style.top = '50%';
+                    draggable.style.transform = 'translate(-50%, -50%)';
+                    
+                    dropZone.appendChild(draggable);
+                    input.value = '';
+                }
+            }
+        }
+
+        // Upload Image Functionality
+        document.getElementById('fileUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.querySelector('.upload-preview');
+                    const previewImg = document.getElementById('imagePreview');
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                    
+                    const status = document.querySelector('.upload-status');
+                    status.textContent = 'Image uploaded successfully!';
+                    status.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        status.style.opacity = '0';
+                    }, 3000);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function downloadOutput() {
+            const button = document.querySelector('.download-button');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressContainer = document.querySelector('.download-progress');
+            
+            // Add loading state
+            button.classList.add('loading');
+            progressContainer.classList.add('show');
+            
+            // Simulate progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = `${progress}%`;
+                
+                if (progress === 100) {
+                    clearInterval(interval);
+                    button.classList.remove('loading');
+                    button.classList.add('success');
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        button.classList.remove('success');
+                        progressContainer.classList.remove('show');
+                        progressBar.style.width = '0%';
+                    }, 2000);
+                }
+            }, 500);
+            
+            // Your existing download logic here
+            html2canvas(document.getElementById('dropZone')).then(function(canvas) {
+                const link = document.createElement('a');
+                link.download = 'output.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        function updateTextColor(event) {
+            const color = event.target.value;
+            const dropZone = document.getElementById('dropZone');
+            const textElements = dropZone.getElementsByClassName('draggable');
+            
+            Array.from(textElements).forEach(element => {
+                if (element.tagName === 'P') {
+                    element.style.color = color;
+                }
+            });
+        }
+
+        function updateShapeColor(event) {
+            const color = event.target.value;
+            const dropZone = document.getElementById('dropZone');
+            const shapes = dropZone.getElementsByClassName('image-box');
+            
+            Array.from(shapes).forEach(shape => {
+                shape.style.backgroundColor = color;
+            });
+        }
+
+        function updateBorderColor(event) {
+            const color = event.target.value;
+            const dropZone = document.getElementById('dropZone');
+            const shapes = dropZone.getElementsByClassName('image-box');
+            
+            Array.from(shapes).forEach(shape => {
+                shape.style.border = `2px solid ${color}`;
+            });
+        }
+
+        $(document).ready(function() {
+            $('#designDropdown').select2({
+                templateResult: formatOption,
+                templateSelection: formatOption
+            });
+        });
+
+        function formatOption(option) {
+            if (!option.id) {
+                return option.text;
+            }
+            
+            var $option = $(
+                '<span><img src="' + $(option.element).data('thumbnail') + '" /> ' +
+                option.text + '</span>'
+            );
+            
+            return $option;
+        }
+
+        function toggleColorOptions() {
+            const header = document.querySelector('.dropdown-header');
+            const content = document.getElementById('colorOptions');
+            const arrow = document.querySelector('.dropdown-header .arrow');
+            
+            header.classList.toggle('active');
+            content.classList.toggle('show');
+        }
+
+        function toggleFontOptions() {
+            const header = document.querySelector('.font-dropdown .dropdown-header');
+            const content = document.getElementById('fontOptions');
+            const arrow = document.querySelector('.font-dropdown .arrow');
+            
+            header.classList.toggle('active');
+            content.classList.toggle('show');
+        }
+
+        function updateFontStyle() {
+            const fontFamily = document.getElementById('fontSelector').value;
+            const dropZone = document.getElementById('dropZone');
+            const textElements = dropZone.getElementsByClassName('draggable');
+            
+            Array.from(textElements).forEach(element => {
+                if (element.tagName === 'P') {
+                    element.style.fontFamily = fontFamily;
+                }
+            });
+        }
+
+        function updateFontSize(size) {
+            const dropZone = document.getElementById('dropZone');
+            const textElements = dropZone.getElementsByClassName('draggable');
+            document.getElementById('fontSizeDisplay').textContent = size + 'px';
+            
+            Array.from(textElements).forEach(element => {
+                if (element.tagName === 'P') {
+                    element.style.fontSize = size + 'px';
+                }
+            });
+        }
+
+        // Add dragLeave handler
+        document.getElementById('dropZone').addEventListener('dragleave', function(event) {
+            this.classList.remove('drag-over');
+        });
+
+        function toggleDesignOptions() {
+            const content = document.getElementById('designOptions');
+            const arrow = document.querySelector('.designs-dropdown .arrow');
+            content.classList.toggle('show');
+            arrow.style.transform = content.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0)';
+        }
+
+        // Fixed drag and drop handling
+        function handleDragStart(event) {
+            // Ensure we're handling the correct element
+            const item = event.target.closest('.design-item');
+            if (!item) return;
+            
+            if (item.classList.contains('used')) {
+                event.preventDefault();
+                showToast('This image has already been used');
+                return;
+            }
+            
+            item.classList.add('dragging');
+            
+            try {
+                const img = item.querySelector('img');
+                if (img) {
+                    // Set plain text data for compatibility
+                    event.dataTransfer.setData('text/plain', JSON.stringify({
+                        src: img.src,
+                        designId: item.id || `design-${Date.now()}`,
+                        type: item.closest('.uploaded-images') ? 'uploaded' : 'design'
+                    }));
+                    
+                    // Create ghost image
+                    const ghost = img.cloneNode(true);
+                    ghost.style.cssText = 'position: absolute; top: -1000px; width: 100px; height: 100px; opacity: 0.8;';
+                    document.body.appendChild(ghost);
+                    event.dataTransfer.setDragImage(ghost, 50, 50);
+                    setTimeout(() => ghost.remove(), 0);
+                }
+            } catch (error) {
+                console.error('Drag start error:', error);
+            }
+        }
+
+        function handleFileUpload(e) {
+            e.preventDefault();
+            const files = e.dataTransfer?.files || e.target.files;
+            const file = files[0];
+            
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    addToUploadedImages(e.target.result);
+                    showToast('Image uploaded successfully!');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showToast('Please upload an image file');
+            }
+        }
+
+        function addToUploadedImages(imgSrc) {
+            let uploadedImagesContainer = document.querySelector('.uploaded-images');
+            
+            if (!uploadedImagesContainer) {
+                uploadedImagesContainer = document.createElement('div');
+                uploadedImagesContainer.className = 'uploaded-images designs-container';
+                uploadedImagesContainer.innerHTML = '<h3><i class="fas fa-cloud-upload-alt"></i> Uploaded Images</h3>';
+                
+                const uploadContainer = document.querySelector('.upload-container');
+                uploadContainer.parentNode.insertBefore(uploadedImagesContainer, uploadContainer.nextSibling);
+            }
+            
+            const imageItem = document.createElement('div');
+            imageItem.className = 'design-item';
+            imageItem.draggable = true;
+            imageItem.innerHTML = `
+                <img src="${imgSrc}" alt="Uploaded image">
+                <div class="design-overlay">
+                    <i class="fas fa-arrows-alt"></i>
+                    <span>Drag me</span>
+                </div>
+            `;
+            
+            uploadedImagesContainer.appendChild(imageItem);
+        }
+
+        function handleDropZoneDrop(e) {
+            e.preventDefault();
+            const dropZone = document.getElementById('dropZone');
+            dropZone.classList.remove('drag-over');
+            
+            // Handle file drop
+            if (e.dataTransfer.files.length > 0) {
+                handleFileUpload(e);
+                return;
+            }
+            
+            // Handle image drop
+            try {
+                const dataString = e.dataTransfer.getData('text/plain');
+                if (dataString) {
+                    const data = JSON.parse(dataString);
+                    if (data && data.src) {
+                        const dropRect = dropZone.getBoundingClientRect();
+                        const x = e.clientX - dropRect.left;
+                        const y = e.clientY - dropRect.top;
+                        addImageToDropZone(data, x, y);
+                    }
+                }
+            } catch (error) {
+                console.error('Drop error:', error);
+                showToast('Error adding image');
+            }
+        }
+
+        function addImageToDropZone(data, x, y) {
+            const dropZone = document.getElementById('dropZone');
+            const { src, designId, type } = data;
+            
+            // Create new image element
+            const newImage = new Image();
+            newImage.src = src;
+            
+            // Wait for image to load before adding to drop zone
+            newImage.onload = function() {
+                // Calculate aspect ratio
+                const aspectRatio = this.naturalWidth / this.naturalHeight;
+                const baseSize = 100; // Base size in pixels
+                
+                // Set size maintaining aspect ratio
+                let width = baseSize;
+                let height = baseSize;
+                
+                if (aspectRatio > 1) {
+                    height = baseSize / aspectRatio;
+                } else {
+                    width = baseSize * aspectRatio;
+                }
+                
+                // Position the image
+                const dropRect = dropZone.getBoundingClientRect();
+                const posX = Math.max(0, Math.min(x - width/2, dropRect.width - width));
+                const posY = Math.max(0, Math.min(y - height/2, dropRect.height - height));
+                
+                Object.assign(this.style, {
+                    position: 'absolute',
+                    left: `${posX}px`,
+                    top: `${posY}px`,
+                    width: `${width}px`,
+                    height: `${height}px`,
+                    cursor: 'move',
+                    zIndex: '1000'
+                });
+                
+                this.draggable = true;
+                this.dataset.designId = designId;
+                this.dataset.type = type;
+                
+                // Mark original as used
+                const originalItem = document.querySelector(`.design-item img[src="${src}"]`)?.closest('.design-item');
+                if (originalItem) {
+                    originalItem.classList.add('used');
+                }
+                
+                // Add interaction capabilities
+                makeResizable(this);
+                makeDraggable(this);
+                
+                // Add to drop zone
+                dropZone.appendChild(this);
+                showToast('Image added successfully!');
+            };
+            
+            newImage.onerror = function() {
+                console.error('Error loading image:', src);
+                showToast('Error loading image');
+            };
+        }
+
+        // Make elements draggable
+        function makeDraggable(element) {
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            
+            element.addEventListener('mousedown', dragStart);
+            
+            function dragStart(e) {
+                initialX = e.clientX - element.offsetLeft;
+                initialY = e.clientY - element.offsetTop;
+                
+                if (e.target === element) {
+                    isDragging = true;
+                    document.addEventListener('mousemove', drag);
+                    document.addEventListener('mouseup', dragEnd);
+                }
+            }
+            
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    
+                    // Constrain to drop zone
+                    const dropZone = document.getElementById('dropZone');
+                    const rect = dropZone.getBoundingClientRect();
+                    
+                    currentX = Math.max(0, Math.min(currentX, rect.width - element.offsetWidth));
+                    currentY = Math.max(0, Math.min(currentY, rect.height - element.offsetHeight));
+                    
+                    element.style.left = `${currentX}px`;
+                    element.style.top = `${currentY}px`;
+                }
+            }
+            
+            function dragEnd() {
+                isDragging = false;
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('mouseup', dragEnd);
+            }
+        }
+
+        // Initialize drag and drop
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropZone = document.getElementById('dropZone');
+            
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('drag-over');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('drag-over');
+            });
+            
+            dropZone.addEventListener('drop', handleDropZoneDrop);
+            
+            // Add drag handlers to all design items
+            document.querySelectorAll('.design-item').forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+        });
+    </script>
+</body>
+
+</html>
